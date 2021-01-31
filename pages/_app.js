@@ -10,6 +10,9 @@ import theme from '../theme';
 import '../styles/globals.css';
 // Components
 
+// smooth scroll
+// import SmoothScroll from 'smooth-scroll';
+
 export default function MyApp(props) {
     const { Component, pageProps } = props;
 

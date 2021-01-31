@@ -1,7 +1,7 @@
 // next js related
 import Image from 'next/image';
 // react related
-import React from 'react';
+import React, { useEffect } from 'react';
 // Material UI
 import {
     Button,
@@ -18,6 +18,7 @@ import {
     secondaryColor,
     projects,
 } from '../utils/constatnts';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
         width: '90vw',
         height: '80vh',
         backgroundColor: secondaryColor,
+        borderRadius: '1rem',
         zIndex: 3,
     },
     imgContainer: {
@@ -74,12 +76,21 @@ function ProjectModal(props) {
 
     const projectDetails = projects[currentProject - 1];
 
+    useEffect(() => {
+        return () => {
+            // cleanup;
+        };
+    }, []);
+
     return (
         <Grid
             container
             direction="column"
             apacing={2}
-            className={classes.modal}
+            className={clsx(classes.modal, 'projectModal')}
+            onClick={(event) => {
+                event.stopPropagation();
+            }}
         >
             <Grid
                 item

@@ -17,3 +17,18 @@ a {
 * {
     box-sizing: border-box;
 }
+
+@keyframes openModal {
+    0% {
+        height: 1%;
+    }
+    100% {
+        height: 100%;
+    }
+}
+
+.projectModal {
+    position: relative;
+    animation: openModal 0.5s ease-in;
+    transition: height 0.5s ease-in;
+}

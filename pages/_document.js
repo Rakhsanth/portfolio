@@ -22,8 +22,15 @@ export default class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"
                         rel="stylesheet"
                     />
+                    {/* jQuery for smooth scrolling effect */}
+                    <script
+                        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                        type="text/javascript"
+                    ></script>
+                    <script src="app.js" />
                 </Head>
                 <body>
+                    <script src="anime.min.js"></script>
                     <Main />
                     <NextScript />
                 </body>
