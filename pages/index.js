@@ -731,18 +731,19 @@ export default function Home() {
     const classes = useStyles();
 
     const [showProject, setshowProject] = useState(false);
-    const [currentProject, setcurrentProject] = useState(1);
+    const [currentProject, setcurrentProject] = useState(2);
 
     // skills hover index
     const [skillIndex, setskillIndex] = useState(0);
     const [skillHovered, setskillHovered] = useState(false);
 
     const handleProjectChange = (num) => {
+        console.log('Project change requested', num);
         setcurrentProject(num);
     };
 
     const handleModalCLose = () => {
-        console.log('click event triggered');
+        // console.log('click event triggered');
         if (showProject) {
             setTimeout(() => {
                 setshowProject(false);
@@ -800,7 +801,7 @@ export default function Home() {
     useEffect(() => {
         function handleScroll(event) {
             const body = document.querySelector('body');
-            console.log(document.scrollingElement.scrollTop);
+            // console.log(document.scrollingElement.scrollTop);
             const appBar = document.querySelector('.MuiAppBar-root');
             if (document.scrollingElement.scrollTop > 55) {
                 appBar.style.height = '3.5rem';
@@ -953,7 +954,11 @@ export default function Home() {
             </Head>
 
             {/* <header> */}
-            <AppBar position="fixed" className={classes.rootAppBar}>
+            <AppBar
+                position="fixed"
+                className={classes.rootAppBar}
+                onClick={handleModalCLose}
+            >
                 <Toolbar className={classes.appBar}>
                     <Link href="#skillSection" className={classes.appBarText}>
                         My Skills
@@ -4090,7 +4095,7 @@ export default function Home() {
                 </Grid>
             </main>
 
-            <footer style={{ height: '110vh' }}></footer>
+            <footer style={{ height: '10vh' }}></footer>
         </div>
     );
 }

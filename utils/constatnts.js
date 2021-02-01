@@ -10,7 +10,12 @@ export const projects = [
         description: 'A responsive landing page for a tour discovery app',
         techStacks: ['React', 'MongoDb'],
     },
-    {},
+    {
+        image: '/img/projects/natours.png',
+        title: 'Natours',
+        description: 'A responsive landing page for a tour discovery app',
+        techStacks: ['React', 'MongoDb'],
+    },
     {},
     {},
     {},
