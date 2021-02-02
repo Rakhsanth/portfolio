@@ -731,7 +731,7 @@ export default function Home() {
     const classes = useStyles();
 
     const [showProject, setshowProject] = useState(false);
-    const [currentProject, setcurrentProject] = useState(2);
+    const [currentProject, setcurrentProject] = useState(1);
 
     // skills hover index
     const [skillIndex, setskillIndex] = useState(0);
@@ -3786,6 +3786,7 @@ export default function Home() {
                                     color="secondary"
                                     className={classes.basicButton}
                                     onClick={() => {
+                                        setcurrentProject(1);
                                         setshowProject(true);
                                     }}
                                 >
@@ -3828,6 +3829,7 @@ export default function Home() {
                                     color="secondary"
                                     className={classes.basicButton}
                                     onClick={() => {
+                                        setcurrentProject(2);
                                         setshowProject(true);
                                     }}
                                 >
@@ -3872,6 +3874,7 @@ export default function Home() {
                                     color="secondary"
                                     className={classes.basicButton}
                                     onClick={() => {
+                                        setcurrentProject(3);
                                         setshowProject(true);
                                     }}
                                 >
@@ -3914,6 +3917,7 @@ export default function Home() {
                                     color="secondary"
                                     className={classes.basicButton}
                                     onClick={() => {
+                                        setcurrentProject(4);
                                         setshowProject(true);
                                     }}
                                 >
@@ -3958,6 +3962,7 @@ export default function Home() {
                                     color="secondary"
                                     className={classes.basicButton}
                                     onClick={() => {
+                                        setcurrentProject(5);
                                         setshowProject(true);
                                     }}
                                 >
@@ -4000,6 +4005,7 @@ export default function Home() {
                                     color="secondary"
                                     className={classes.basicButton}
                                     onClick={() => {
+                                        setcurrentProject(6);
                                         setshowProject(true);
                                     }}
                                 >
