@@ -36,3 +36,37 @@ a:hover {
     animation: openModal 0.5s ease-in;
     transition: height 0.5s ease-in;
 }
+
+.prevImage {
+    position: absolute;
+    left: -300px;
+    overflow: hidden;
+}
+
+.currentImage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+.nextImage {
+    position: absolute;
+    left: 300px;
+    overflow: hidden;
+}
+
+.simplebar-content {
+    width: 100%;
+    height: 100%;
+}
+
+.simplebar-track.simplebar-vertical {
+    width: 0.5rem;
+    background-color: #1b232e;
+    border-radius: 1rem;
+}
+
+.simplebar-scrollbar:before {
+    background-color: #fff !important;
+}

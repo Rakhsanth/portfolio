@@ -1,7 +1,7 @@
 // next js related
 import Image from 'next/image';
 // react related
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 // Material UI
 import {
     Button,
@@ -12,6 +12,8 @@ import {
     SvgIcon,
     Typography,
 } from '@material-ui/core';
+// anime js
+import anime from 'animejs';
 // utils
 import {
     lightTextColor,
@@ -20,6 +22,8 @@ import {
     projects,
 } from '../utils/constatnts';
 import clsx from 'clsx';
+import 'simplebar';
+import 'simplebar/dist/simplebar.css';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -34,25 +38,52 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 3,
         overflow: 'hidden',
     },
-    imgContainer: {
+    imgsContainer: {
         position: 'relative',
         padding: '0 !important',
         borderRadius: '1rem',
         overflow: 'hidden',
         margin: '0 auto',
-        width: '15rem',
-        height: '15rem',
+        // transform: 'translateX(-100%)',
+        width: '20rem',
+        height: '50%',
         [theme.breakpoints.down('md')]: {
-            width: '12rem',
+            width: '16rem',
             height: '12rem',
         },
         [theme.breakpoints.down('sm')]: {
-            width: '10rem',
+            width: '13rem',
             height: '10rem',
         },
         [theme.breakpoints.down('xs')]: {
-            width: '9rem',
+            width: '10rem',
             height: '9rem',
+        },
+    },
+    imgContainer: {
+        position: 'absolute',
+        padding: '0 !important',
+        borderRadius: '1rem',
+        overflow: 'hidden',
+        margin: '0 auto',
+        marginLeft: '2.5rem',
+        // transform: 'translateX(-100%)',
+        width: '15rem',
+        height: '100%',
+        [theme.breakpoints.down('md')]: {
+            width: '13rem',
+            // height: '12rem',
+            marginLeft: '2rem',
+        },
+        [theme.breakpoints.down('sm')]: {
+            width: '11rem',
+            // height: '10.5rem',
+            marginLeft: '1.5rem',
+        },
+        [theme.breakpoints.down('xs')]: {
+            width: '9rem',
+            // height: '9rem',
+            marginLeft: '1rem',
         },
     },
     middleGrid1: {
@@ -66,6 +97,9 @@ const useStyles = makeStyles((theme) => ({
         // '&:not(:last-child)': {
         //     borderRight: '1px solid #fff',
         // },
+        [theme.breakpoints.down('sm')]: {
+            display: 'none',
+        },
     },
     middleGrid2: {
         position: 'relative',
@@ -77,11 +111,18 @@ const useStyles = makeStyles((theme) => ({
         // '&:not(:last-child)': {
         //     borderRight: '1px solid #fff',
         // },
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+        },
     },
     scrollable: {
         overflowY: 'auto',
     },
+    middleGridInnerContainer: {
+        height: '100%',
+    },
     middleGridTitleArea: {
+        marginTop: '0.5rem',
         width: '100%',
         textAlign: 'center',
     },
@@ -115,6 +156,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '2rem',
         color: '#fff',
         textAlign: 'center',
+        height: '40%',
     },
     projectTitle: {
         fontSize: '1.5rem',
@@ -195,11 +237,94 @@ function ProjectModal(props) {
 
     const projectDetails = projects[currentProject - 1];
 
+    let prevImage = null;
+    let nextImage = null;
+    if (currentProject - 1 >= 1) {
+        prevImage = projects[currentProject - 2].image;
+    }
+    if (currentProject - 1 < projects.length - 1) {
+        nextImage = projects[currentProject].image;
+    }
+
+    let imgAnimeRefLeft = useRef(null);
+    let imgAnimeRefRight = useRef(null);
     useEffect(() => {
+        imgAnimeRefLeft.current = anime({
+            targets: ['.prevImage', '.currentImage', '.nextImage'],
+            translateX: -300,
+            rotate: '-360deg',
+            duration: 1000,
+            autoplay: false,
+        });
+        imgAnimeRefRight.current = anime({
+            targets: ['.prevImage', '.currentImage', '.nextImage'],
+            translateX: 300,
+            rotate: '360deg',
+            duration: 1000,
+            autoplay: false,
+        });
         return () => {
             // cleanup;
         };
     }, []);
+
+    const renderPrevImage = () => {
+        if (prevImage !== null) {
+            console.log(prevImage);
+            return (
+                <Image
+                    src={prevImage}
+                    alt="project-landing-page"
+                    layout="fill"
+                    objectFit="fill"
+                />
+            );
+        }
+    };
+
+    const renderNextImage = () => {
+        if (nextImage !== null) {
+            console.log(nextImage);
+            return (
+                <Image
+                    src={nextImage}
+                    alt="project-landing-page"
+                    layout="fill"
+                    objectFit="fill"
+                />
+            );
+        }
+    };
+
+    const hideProjectButtons = () => {
+        document.querySelector('.prevNextButtons').style.display = 'none';
+    };
+
+    const showProjectButtons = () => {
+        document.querySelector('.prevNextButtons').style.display = 'flex';
+    };
+
+    const handlePrevImage = async () => {
+        hideProjectButtons();
+        imgAnimeRefRight.current.play();
+        imgAnimeRefRight.current.finished.then(function () {
+            handleProjectChange(currentProject - 1);
+            imgAnimeRefRight.current.restart();
+            imgAnimeRefRight.current.pause();
+            showProjectButtons();
+        });
+    };
+
+    const handleNextImage = async () => {
+        hideProjectButtons();
+        imgAnimeRefLeft.current.play();
+        imgAnimeRefLeft.current.finished.then(function () {
+            handleProjectChange(currentProject + 1);
+            imgAnimeRefLeft.current.restart();
+            imgAnimeRefLeft.current.pause();
+            showProjectButtons();
+        });
+    };
 
     return (
         <Grid
@@ -224,12 +349,15 @@ function ProjectModal(props) {
                     direction="column"
                     spacing={2}
                     className={clsx(classes.middleGrid1, classes.scrollable)}
+                    data-simplebar
                 >
                     <Grid
                         item
+                        xs
                         container
                         direction="column"
                         justify="space-between"
+                        className={classes.middleGridInnerContainer}
                     >
                         <Grid
                             item
@@ -283,7 +411,8 @@ function ProjectModal(props) {
                                             className={classes.listText}
                                         >
                                             shkfjajs;f askdjhfapwusfe laskdf
-                                            oaisds dhfo;asf alsdh failw fia
+                                            oaisds dhfo;asf alsdh failw fiasdfk
+                                            sidbu agjdsh
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -315,7 +444,9 @@ function ProjectModal(props) {
                                             className={classes.listText}
                                         >
                                             shkfjajs;f askdjhfapwusfe laskdf
-                                            oaisds dhfo;asf alsdh failw fia
+                                            oaisds dhfo;asf alsdh failw fia jshd
+                                            uyfg ayusdgf iuaeyfuiaqybfuaywifuka
+                                            evyitA udy IQWGilu cbkd lsd
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -507,17 +638,38 @@ function ProjectModal(props) {
                     item
                     container
                     direction="column"
+                    justify="flex-start"
                     className={classes.middleGrid2}
                 >
-                    <Grid item className={classes.imgContainer}>
-                        <Image
-                            src={projectDetails.image}
-                            alt="project-landing-page"
-                            layout="fill"
-                            objectFit="fill"
-                        />
+                    <Grid item container xs className={classes.imgsContainer}>
+                        <Grid
+                            item
+                            className={clsx(classes.imgContainer, 'prevImage')}
+                        >
+                            {renderPrevImage()}
+                        </Grid>
+                        <Grid
+                            item
+                            className={clsx(
+                                classes.imgContainer,
+                                'currentImage'
+                            )}
+                        >
+                            <Image
+                                src={projectDetails.image}
+                                alt="project-landing-page"
+                                layout="fill"
+                                objectFit="fill"
+                            />
+                        </Grid>
+                        <Grid
+                            item
+                            className={clsx(classes.imgContainer, 'nextImage')}
+                        >
+                            {renderNextImage()}
+                        </Grid>
                     </Grid>
-                    <Grid item className={classes.titleDesc}>
+                    <Grid item xs className={classes.titleDesc}>
                         <Typography
                             variant="h3"
                             className={classes.projectTitle}
@@ -557,16 +709,14 @@ function ProjectModal(props) {
                 direction="row"
                 justify="center"
                 spacing={3}
-                className={classes.buttonsSection}
+                className={clsx(classes.buttonsSection, 'prevNextButtons')}
             >
                 <Grid item>
                     {currentProject > 1 ? (
                         <Typography
                             className={classes.pageButton}
                             variant="body"
-                            onClick={() => {
-                                handleProjectChange(currentProject - 1);
-                            }}
+                            onClick={handlePrevImage}
                         >
                             Previous Project
                         </Typography>
@@ -577,9 +727,7 @@ function ProjectModal(props) {
                         <Typography
                             className={classes.pageButton}
                             variant="body"
-                            onClick={() => {
-                                handleProjectChange(currentProject + 1);
-                            }}
+                            onClick={handleNextImage}
                         >
                             Next Project
                         </Typography>
