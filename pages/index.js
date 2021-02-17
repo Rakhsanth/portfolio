@@ -1265,9 +1265,9 @@ export default function Home() {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Link href="https://www.figma.com/file/PZxkzoh5Y43AMvBNKFbHdb/raks-resume?node-id=0%3A1">
+                            <Link href="/docs/A4 - 3.pdf" download>
                                 <Button variant="contained" color="primary">
-                                    See Resume
+                                    Download Resume
                                 </Button>
                             </Link>
                         </Grid>
