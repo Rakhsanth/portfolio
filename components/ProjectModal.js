@@ -683,7 +683,7 @@ function ProjectModal(props) {
                             {projectDetails.description}
                         </Typography>
                         <Container className={classes.titleDescButtons}>
-                            <Link href="">
+                            <Link href={projectDetails.link}>
                                 <Button
                                     variant="contained"
                                     className={classes.projectButton}

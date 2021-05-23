@@ -6,7 +6,16 @@ body {
 }
 
 body {
+    overflow-x: hidden;
     background-color: #14181e !important;
+    @media screen {
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 1rem;
+    }
 }
 
 a {
@@ -70,3 +79,11 @@ a:hover {
 .simplebar-scrollbar:before {
     background-color: #fff !important;
 }
+
+/* .ltoRScroll div[data-scroll='in'] {
+    margin-left: 30%;
+}
+
+.rtoLScroll div[data-scroll='in'] {
+    margin-left: -30%;
+} */

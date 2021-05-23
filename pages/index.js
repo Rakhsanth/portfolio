@@ -17,24 +17,33 @@ import {
     SvgIcon,
     Toolbar,
     Typography,
+    Dialog,
 } from '@material-ui/core';
+import { Business } from '@material-ui/icons';
 import clsx from 'clsx';
 // Custon styles
 import styles from '../styles/Home.module.css';
 import { useState, useEffect, useRef } from 'react';
 import ProjectModal from '../components/ProjectModal';
 import {
+    projects,
     primaryColor,
     secondaryColor,
     emptySTarColor,
     fullStarColor,
     lightTextColor,
+    skills,
 } from '../utils/constatnts';
 // anime js
 import anime from 'animejs';
+import SkillModal from '../components/SkillModal';
 // const anime = require('animejs');
 
 const useStyles = makeStyles((theme) => ({
+    main: {
+        width: '100vw',
+        overflow: 'hidden !important',
+    },
     rootAppBar: {
         height: '0rem',
         transition: 'height 0.5s ease-out',
@@ -52,6 +61,19 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '0.95rem',
         marginRight: '2.5rem',
         cursor: 'pointer',
+        '& > span': {
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '0.75rem',
+            },
+            [theme.breakpoints.down('xs')]: {
+                display: 'none',
+            },
+        },
+    },
+    headerIcon: {
+        width: '2rem',
+        marginRight: '0.5rem',
+        fill: secondaryColor,
     },
     topSectionContainer: {
         width: '100vw',
@@ -196,6 +218,30 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '0.9rem',
         },
     },
+    footerText1: {
+        fontSize: '1.5rem',
+        [theme.breakpoints.down('md')]: {
+            fontSize: '1.5rem',
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '1rem',
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '0.75rem',
+        },
+    },
+    footerText2: {
+        fontSize: '1.5rem',
+        [theme.breakpoints.down('md')]: {
+            fontSize: '1rem',
+        },
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '0.75rem',
+        },
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '0.5rem',
+        },
+    },
     contactContainer: {
         marginTop: '2rem',
         backgroundColor: secondaryColor,
@@ -233,6 +279,9 @@ const useStyles = makeStyles((theme) => ({
         margin: '5rem auto',
         textAlign: 'center',
         overflow: 'visible',
+        [theme.breakpoints.down('xs')]: {
+            minHeight: '120rem',
+        },
     },
     aspiantionalSkillContentSections: {
         position: 'relative',
@@ -241,6 +290,9 @@ const useStyles = makeStyles((theme) => ({
         margin: '5rem auto',
         textAlign: 'center',
         overflow: 'visible',
+        [theme.breakpoints.down('xs')]: {
+            minHeight: '25rem',
+        },
     },
     sectionTitle: {
         position: 'absolute',
@@ -269,6 +321,27 @@ const useStyles = makeStyles((theme) => ({
         width: '80%',
         height: '50%',
         overflow: 'visible',
+        [theme.breakpoints.down('xs')]: {
+            top: 0,
+            minHeight: '15rem',
+            height: 0,
+            transform: 'translate(-50%, 0%)',
+        },
+    },
+    aspSkillsContainer: {
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        position: 'absolute',
+        width: '80%',
+        height: '50%',
+        overflow: 'visible',
+        [theme.breakpoints.down('xs')]: {
+            top: '5%',
+            minHeight: '15rem',
+            height: 0,
+            transform: 'translate(-50%, 0%)',
+        },
     },
     skillCard: {
         width: '5rem',
@@ -282,6 +355,10 @@ const useStyles = makeStyles((theme) => ({
             height: '10rem',
             opacity: 1,
             pointerEvents: 'fill',
+        },
+        [theme.breakpoints.down('xs')]: {
+            marginTop: '1.5rem',
+            position: 'relative !important',
         },
     },
     html: {
@@ -325,6 +402,10 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             zIndex: 50,
         },
+        [theme.breakpoints.down('xs')]: {
+            left: 0,
+            zIndex: 0,
+        },
     },
     nodeJs: {
         position: 'absolute',
@@ -333,6 +414,10 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 14,
         '&:hover': {
             zIndex: 50,
+        },
+        [theme.breakpoints.down('xs')]: {
+            left: '30%',
+            zIndex: 9,
         },
     },
     sass: {
@@ -343,6 +428,10 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             zIndex: 50,
         },
+        [theme.breakpoints.down('xs')]: {
+            left: '60%',
+            zIndex: 19,
+        },
     },
     python: {
         position: 'absolute',
@@ -351,6 +440,10 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 34,
         '&:hover': {
             zIndex: 50,
+        },
+        [theme.breakpoints.down('xs')]: {
+            left: '90%',
+            zIndex: 29,
         },
     },
     java: {
@@ -361,6 +454,10 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             zIndex: 50,
         },
+        [theme.breakpoints.down('xs')]: {
+            left: 0,
+            zIndex: 0,
+        },
     },
     cpp: {
         position: 'absolute',
@@ -369,6 +466,10 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 10,
         '&:hover': {
             zIndex: 50,
+        },
+        [theme.breakpoints.down('xs')]: {
+            left: '30%',
+            zIndex: 9,
         },
     },
     mongodb: {
@@ -379,6 +480,10 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             zIndex: 50,
         },
+        [theme.breakpoints.down('xs')]: {
+            left: '60%',
+            zIndex: 19,
+        },
     },
     nextJs: {
         position: 'absolute',
@@ -387,6 +492,10 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 30,
         '&:hover': {
             zIndex: 50,
+        },
+        [theme.breakpoints.down('xs')]: {
+            left: '90%',
+            zIndex: 29,
         },
     },
     git: {
@@ -397,6 +506,10 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             zIndex: 50,
         },
+        [theme.breakpoints.down('xs')]: {
+            left: 0,
+            zIndex: 0,
+        },
     },
     animeJs: {
         position: 'absolute',
@@ -406,6 +519,10 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             zIndex: 50,
         },
+        [theme.breakpoints.down('xs')]: {
+            left: '30%',
+            zIndex: 9,
+        },
     },
     d3Js: {
         position: 'absolute',
@@ -414,6 +531,10 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 12,
         '&:hover': {
             zIndex: 50,
+        },
+        [theme.breakpoints.down('xs')]: {
+            left: '60%',
+            zIndex: 19,
         },
     },
     reactNative: {
@@ -433,6 +554,9 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             zIndex: 50,
         },
+        [theme.breakpoints.down('xs')]: {
+            left: '40%',
+        },
     },
     tensorflowPy: {
         position: 'absolute',
@@ -441,6 +565,9 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 20,
         '&:hover': {
             zIndex: 50,
+        },
+        [theme.breakpoints.down('xs')]: {
+            left: '85%',
         },
     },
     cardTitle: {},
@@ -454,15 +581,31 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'visible',
         pointerEvents: 'none',
         opacity: 0,
-        padding: '0.15rem',
+        padding: '0.1rem',
         backgroundColor: primaryColor,
         borderRadius: '1rem',
+        display: 'block',
         zIndex: 1,
+        [theme.breakpoints.down('xs')]: {
+            display: 'none',
+        },
     },
     popUpContainer: {
         width: '100%',
         height: '100%',
         padding: '0.25rem',
+    },
+    skillModal: {
+        // maxWidth: '75%',
+        // minHeight: '20%',
+        '& .MuiDialog-container': {
+            minHeight: '30%',
+            maxWidth: '75%',
+            top: '50%',
+            left: '50%',
+            position: 'relative',
+            transform: 'translate(-50%, -50%)',
+        },
     },
     popUpLogo: {
         height: '100%',
@@ -545,13 +688,15 @@ const useStyles = makeStyles((theme) => ({
     },
     project1: {
         marginTop: '2rem',
-        marginLeft: '30%',
+        marginLeft: '-30%',
         width: '70rem',
+        transition: 'all 0.5s ease-out',
     },
     project2: {
         marginTop: '2rem',
-        marginLeft: '-30%',
+        marginLeft: '30%',
         width: '70rem',
+        transition: 'all 0.5s ease-out',
     },
     projectBottomLeftText: {
         position: 'absolute',
@@ -562,6 +707,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'flex-end',
+        textAlign: 'end',
     },
     projectBottomRightText: {
         position: 'absolute',
@@ -572,6 +718,7 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
+        textAlign: 'start',
     },
     projectTopLeftText: {
         position: 'absolute',
@@ -582,16 +729,14 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'flex-end',
+        textAlign: 'end',
     },
     projectTitle: {
-        position: 'absolute',
-        top: 0,
-        left: '50%',
-        transform: 'translateX(-50%)',
         fontWeight: 'bold',
         letterSpacing: '0.25rem',
         color: '#ffffff',
         fontSize: '1.23rem',
+        whiteSpace: 'nowrap',
         [theme.breakpoints.down('md')]: {
             fontSize: '1.23rem',
         },
@@ -603,7 +748,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     projectDesc: {
-        margin: '1rem 0',
+        margin: '0.5rem 0',
         letterSpacing: '0.15rem',
         color: '#8a8d90',
         fontSize: '1.23rem',
@@ -631,9 +776,11 @@ const useStyles = makeStyles((theme) => ({
         },
         [theme.breakpoints.down('sm')]: {
             height: '15rem',
+            width: '35%',
         },
         [theme.breakpoints.down('xs')]: {
-            height: '11rem',
+            height: '13rem',
+            width: '40%',
         },
     },
     overlayBottomRight: {
@@ -652,7 +799,7 @@ const useStyles = makeStyles((theme) => ({
             height: '15rem',
         },
         [theme.breakpoints.down('xs')]: {
-            height: '11rem',
+            height: '13rem',
         },
     },
     overlayTopLeft: {
@@ -671,7 +818,7 @@ const useStyles = makeStyles((theme) => ({
             height: '15rem',
         },
         [theme.breakpoints.down('xs')]: {
-            height: '11rem',
+            height: '13rem',
         },
     },
     overlayTopRight: {
@@ -690,7 +837,7 @@ const useStyles = makeStyles((theme) => ({
             height: '15rem',
         },
         [theme.breakpoints.down('xs')]: {
-            height: '11rem',
+            height: '13rem',
         },
     },
     basicButton: {
@@ -698,6 +845,9 @@ const useStyles = makeStyles((theme) => ({
         fontStyle: 'italic',
         textTransform: 'capitalize',
         borderRadius: '0.25rem',
+        [theme.breakpoints.down('xs')]: {
+            minWidth: '5rem',
+        },
     },
     workExpContainer: {
         marginTop: '2rem',
@@ -709,6 +859,12 @@ const useStyles = makeStyles((theme) => ({
         position: 'relative',
         width: '100%',
         height: '90%',
+        [theme.breakpoints.down('xs')]: {
+            marginTop: '25%',
+            transform: 'translateY(-50%)',
+            width: '50%',
+            height: '50%',
+        },
     },
     expNum: {
         color: '#fff',
@@ -724,6 +880,9 @@ const useStyles = makeStyles((theme) => ({
     expText: {
         color: '#fff',
         fontSize: '1rem',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '0.75rem',
+        },
     },
 }));
 
@@ -732,13 +891,15 @@ export default function Home() {
 
     const [showProject, setshowProject] = useState(false);
     const [currentProject, setcurrentProject] = useState(1);
+    const [showSkill, setshowSkill] = useState(false);
+    const [currentSkill, setcurrentSkill] = useState(null);
 
     // skills hover index
     const [skillIndex, setskillIndex] = useState(0);
     const [skillHovered, setskillHovered] = useState(false);
 
     const handleProjectChange = (num) => {
-        console.log('Project change requested', num);
+        // console.log('Project change requested', num);
         setcurrentProject(num);
     };
 
@@ -749,6 +910,13 @@ export default function Home() {
                 setshowProject(false);
             }, 1000);
             document.querySelector('.projectModal').style.height = '0.1%';
+        }
+    };
+
+    const handleSkillClick = (skill) => {
+        if (window.innerWidth < 600) {
+            setcurrentSkill(skill);
+            setshowSkill(true);
         }
     };
 
@@ -898,51 +1066,60 @@ export default function Home() {
     }, []);
 
     const toggleSkillAnimeFront = () => {
-        if (skillAnimationFrontRef.current.began) {
-            skillAnimationFrontRef.current.reverse();
+        // console.log(`sceen width : ${window.innerWidth}`);
+        if (window.innerWidth > 600) {
+            if (skillAnimationFrontRef.current.began) {
+                skillAnimationFrontRef.current.reverse();
 
-            if (
-                skillAnimationFrontRef.current.progress === 100 &&
-                skillAnimationFrontRef.current.direction === 'reverse'
-            ) {
-                skillAnimationFrontRef.current.completed = false;
+                if (
+                    skillAnimationFrontRef.current.progress === 100 &&
+                    skillAnimationFrontRef.current.direction === 'reverse'
+                ) {
+                    skillAnimationFrontRef.current.completed = false;
+                }
             }
-        }
 
-        if (skillAnimationFrontRef.current.paused) {
-            skillAnimationFrontRef.current.play();
+            if (skillAnimationFrontRef.current.paused) {
+                skillAnimationFrontRef.current.play();
+            }
         }
     };
     const toggleSkillAnimeCenter = () => {
-        if (skillAnimationCenterRef.current.began) {
-            skillAnimationCenterRef.current.reverse();
+        // console.log(`sceen width : ${window.innerWidth}`);
+        if (window.innerWidth > 600) {
+            if (skillAnimationCenterRef.current.began) {
+                skillAnimationCenterRef.current.reverse();
 
-            if (
-                skillAnimationCenterRef.current.progress === 100 &&
-                skillAnimationCenterRef.current.direction === 'reverse'
-            ) {
-                skillAnimationCenterRef.current.completed = false;
+                if (
+                    skillAnimationCenterRef.current.progress === 100 &&
+                    skillAnimationCenterRef.current.direction === 'reverse'
+                ) {
+                    skillAnimationCenterRef.current.completed = false;
+                }
             }
-        }
 
-        if (skillAnimationCenterRef.current.paused) {
-            skillAnimationCenterRef.current.play();
+            if (skillAnimationCenterRef.current.paused) {
+                skillAnimationCenterRef.current.play();
+            }
         }
     };
     const toggleSkillAnimeLast = () => {
-        if (skillAnimationLastRef.current.began) {
-            skillAnimationLastRef.current.reverse();
+        // console.log(`sceen width : ${window.innerWidth}`);
+        if (window.innerWidth > 600) {
+            if (skillAnimationLastRef.current.began) {
+                skillAnimationLastRef.current.reverse();
 
-            if (
-                skillAnimationLastRef.current.progress === 100 &&
-                skillAnimationLastRef.current.direction === 'reverse'
-            ) {
-                skillAnimationLastRef.current.completed = false;
+                if (
+                    skillAnimationLastRef.current.progress === 100 &&
+                    skillAnimationLastRef.current.direction === 'reverse'
+                ) {
+                    skillAnimationLastRef.current.completed = false;
+                }
             }
-        }
 
-        if (skillAnimationLastRef.current.paused) {
-            skillAnimationLastRef.current.play();
+            if (skillAnimationLastRef.current.paused) {
+                skillAnimationLastRef.current.play();
+            }
         }
     };
 
@@ -961,28 +1138,42 @@ export default function Home() {
             >
                 <Toolbar className={classes.appBar}>
                     <Link href="#skillSection" className={classes.appBarText}>
-                        My Skills
+                        <SvgIcon className={classes.headerIcon}>
+                            <path d="M7.156 13.797c-0.656-1.437-1.156-3.344-1.156-5.797h-4v1.5c0 1.531 2.078 3.656 5.156 4.297zM24 9.5v-1.5h-4c0 2.453-0.5 4.359-1.156 5.797 3.078-0.641 5.156-2.766 5.156-4.297zM26 7.5v2c0 2.969-3.594 6.25-8.469 6.484-0.625 0.797-1.203 1.266-1.484 1.484-0.828 0.75-1.047 1.531-1.047 2.531s0.5 2 2 2 3 1 3 2.5v1c0 0.281-0.219 0.5-0.5 0.5h-13c-0.281 0-0.5-0.219-0.5-0.5v-1c0-1.5 1.5-2.5 3-2.5s2-1 2-2-0.219-1.781-1.047-2.531c-0.281-0.219-0.859-0.688-1.484-1.484-4.875-0.234-8.469-3.516-8.469-6.484v-2c0-0.828 0.672-1.5 1.5-1.5h4.5v-1.5c0-1.375 1.125-2.5 2.5-2.5h9c1.375 0 2.5 1.125 2.5 2.5v1.5h4.5c0.828 0 1.5 0.672 1.5 1.5z"></path>
+                        </SvgIcon>
+                        <span>My Skills</span>
                     </Link>
                     <Link
                         href="#aspirationalskillSection"
                         className={classes.appBarText}
                     >
-                        Aspirational Skills
+                        <SvgIcon className={classes.headerIcon}>
+                            <path d="M7 4h-6c-0.55 0-1 0.45-1 1v22c0 0.55 0.45 1 1 1h6c0.55 0 1-0.45 1-1v-22c0-0.55-0.45-1-1-1zM6 10h-4v-2h4v2z"></path>
+                            <path d="M17 4h-6c-0.55 0-1 0.45-1 1v22c0 0.55 0.45 1 1 1h6c0.55 0 1-0.45 1-1v-22c0-0.55-0.45-1-1-1zM16 10h-4v-2h4v2z"></path>
+                            <path d="M23.909 5.546l-5.358 2.7c-0.491 0.247-0.691 0.852-0.443 1.343l8.999 17.861c0.247 0.491 0.852 0.691 1.343 0.443l5.358-2.7c0.491-0.247 0.691-0.852 0.443-1.343l-8.999-17.861c-0.247-0.491-0.852-0.691-1.343-0.443z"></path>
+                        </SvgIcon>
+                        <span>Aspirational Skills</span>
                     </Link>
                     <Link href="#projectSection" className={classes.appBarText}>
-                        Projects
+                        <SvgIcon className={classes.headerIcon}>
+                            <path d="M28 22v-16c0-1.1-0.9-2-2-2h-20c-1.1 0-2 0.9-2 2v16h-4v6h32v-6h-4zM20 26h-8v-2h8v2zM26 22h-20v-15.996c0.001-0.001 0.002-0.003 0.004-0.004h19.993c0.001 0.001 0.003 0.002 0.004 0.004v15.996z"></path>
+                        </SvgIcon>
+                        <span>Projects</span>
                     </Link>
                     <Link
                         href="#experienceSection"
                         className={classes.appBarText}
                     >
-                        Work Experience
+                        <SvgIcon className={classes.headerIcon}>
+                            <path d="M0 32h16v-32h-16v32zM10 4h4v4h-4v-4zM10 12h4v4h-4v-4zM10 20h4v4h-4v-4zM2 4h4v4h-4v-4zM2 12h4v4h-4v-4zM2 20h4v4h-4v-4zM18 10h14v2h-14zM18 32h4v-8h6v8h4v-18h-14z"></path>
+                        </SvgIcon>
+                        <span>Work Experience</span>
                     </Link>
                 </Toolbar>
             </AppBar>
             {/* </header> */}
 
-            <main onClick={handleModalCLose}>
+            <main onClick={handleModalCLose} className={classes.main}>
                 <Grid
                     container
                     direction="column"
@@ -1060,7 +1251,10 @@ export default function Home() {
                         />
                     </Grid>
                 </Grid>
-                <Container className={classes.dpTop}>
+                <Container
+                    className={clsx(classes.dpTop, 'scrollImg')}
+                    data-speed="8.5"
+                >
                     <Image
                         src="/img/topSectionImages/Ellipse 21.png"
                         alt="design scrapper"
@@ -1094,7 +1288,7 @@ export default function Home() {
                     </Typography>
                     <Grid
                         container
-                        xs={12}
+                        // xs={12}
                         spacing={2}
                         direction="column"
                         alignItems="center"
@@ -1289,8 +1483,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeFront}
                             onMouseLeave={toggleSkillAnimeFront}
+                            onClick={() => handleSkillClick('HTML 5')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -1419,7 +1619,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(4)}
+                                                {renderPopUpStars(
+                                                    skills[0].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1431,11 +1633,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[0].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -1510,7 +1708,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(4)}
+                                {renderStars(skills[0].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -1521,8 +1719,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
+                            onClick={() => handleSkillClick('CSS 3')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -1712,7 +1916,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(4)}
+                                                {renderPopUpStars(
+                                                    skills[1].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1724,11 +1930,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[1].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -1846,7 +2048,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(4)}
+                                {renderStars(skills[1].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -1858,7 +2060,12 @@ export default function Home() {
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -1930,7 +2137,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(4)}
+                                                {renderPopUpStars(
+                                                    skills[2].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1942,11 +2151,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[2].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -1964,7 +2169,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(4)}
+                                {renderStars(skills[2].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -1976,7 +2181,12 @@ export default function Home() {
                             onMouseEnter={toggleSkillAnimeLast}
                             onMouseLeave={toggleSkillAnimeLast}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -2048,7 +2258,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(3)}
+                                                {renderPopUpStars(
+                                                    skills[3].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -2060,11 +2272,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[3].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -2082,7 +2290,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(3)}
+                                {renderStars(skills[3].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -2094,7 +2302,12 @@ export default function Home() {
                             onMouseEnter={toggleSkillAnimeFront}
                             onMouseLeave={toggleSkillAnimeFront}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -2166,7 +2379,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(4)}
+                                                {renderPopUpStars(
+                                                    skills[4].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -2178,11 +2393,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[4].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -2200,7 +2411,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(4)}
+                                {renderStars(skills[4].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -2211,8 +2422,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
+                            onClick={() => handleSkillClick('NodeJs')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -2284,7 +2501,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(3)}
+                                                {renderPopUpStars(
+                                                    skills[5].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -2318,7 +2537,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(3)}
+                                {renderStars(skills[5].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -2329,8 +2548,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
+                            onClick={() => handleSkillClick('Sass / Scss')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -2402,7 +2627,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(3)}
+                                                {renderPopUpStars(
+                                                    skills[6].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -2436,7 +2663,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(3)}
+                                {renderStars(skills[6].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -2447,8 +2674,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeLast}
                             onMouseLeave={toggleSkillAnimeLast}
+                            onClick={() => handleSkillClick('Python 3')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -2520,7 +2753,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(3)}
+                                                {renderPopUpStars(
+                                                    skills[7].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -2554,7 +2789,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(3)}
+                                {renderStars(skills[7].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -2565,8 +2800,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeFront}
                             onMouseLeave={toggleSkillAnimeFront}
+                            onClick={() => handleSkillClick('Java')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -2638,7 +2879,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(3)}
+                                                {renderPopUpStars(
+                                                    skills[8].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -2672,7 +2915,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(3)}
+                                {renderStars(skills[8].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -2683,8 +2926,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
+                            onClick={() => handleSkillClick('C++')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -2756,7 +3005,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(3)}
+                                                {renderPopUpStars(
+                                                    skills[9].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -2790,7 +3041,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(3)}
+                                {renderStars(skills[9].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -2801,8 +3052,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
+                            onClick={() => handleSkillClick('Mongo DB')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -2874,7 +3131,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(3)}
+                                                {renderPopUpStars(
+                                                    skills[10].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -2908,7 +3167,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(3)}
+                                {renderStars(skills[10].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -2919,8 +3178,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeLast}
                             onMouseLeave={toggleSkillAnimeLast}
+                            onClick={() => handleSkillClick('Next JS')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -2992,7 +3257,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(3)}
+                                                {renderPopUpStars(
+                                                    skills[11].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -3026,7 +3293,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(3)}
+                                {renderStars(skills[11].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -3037,8 +3304,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
+                            onClick={() => handleSkillClick('git')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -3110,7 +3383,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(3)}
+                                                {renderPopUpStars(
+                                                    skills[12].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -3144,7 +3419,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(3)}
+                                {renderStars(skills[12].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -3155,8 +3430,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
+                            onClick={() => handleSkillClick('Anime JS')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -3228,7 +3509,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(2)}
+                                                {renderPopUpStars(
+                                                    skills[13].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -3262,7 +3545,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(2)}
+                                {renderStars(skills[13].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -3273,8 +3556,14 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeLast}
                             onMouseLeave={toggleSkillAnimeLast}
+                            onClick={() => handleSkillClick('D3 JS')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'mySkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -3346,7 +3635,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(1)}
+                                                {renderPopUpStars(
+                                                    skills[14].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -3380,7 +3671,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(1)}
+                                {renderStars(skills[14].stars)}
                             </CardActions>
                         </Card>
                     </Container>
@@ -3390,17 +3681,27 @@ export default function Home() {
                     id="aspirationalskillSection"
                     className={classes.aspiantionalSkillContentSections}
                 >
-                    <Typography variant="h3" className={classes.sectionTitle}>
+                    <Typography
+                        variant="h3"
+                        className={classes.sectionTitle}
+                        style={{ marginBottom: '2rem' }}
+                    >
                         Aspirational Skills
                     </Typography>
-                    <Container className={classes.skillsContainer}>
+                    <Container className={classes.aspSkillsContainer}>
                         <Card
                             className={clsx(
                                 classes.skillCard,
                                 classes.reactNative
                             )}
+                            onClick={() => handleSkillClick('React Native')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'myAspSkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -3472,7 +3773,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(0)}
+                                                {renderPopUpStars(
+                                                    skills[15].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -3506,7 +3809,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(0)}
+                                {renderStars(skills[15].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -3514,8 +3817,14 @@ export default function Home() {
                                 classes.skillCard,
                                 classes.tensorflowJs
                             )}
+                            onClick={() => handleSkillClick('Tensorflow JS')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'myAspSkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -3587,7 +3896,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(0)}
+                                                {renderPopUpStars(
+                                                    skills[16].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -3621,7 +3932,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(0)}
+                                {renderStars(skills[16].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -3629,8 +3940,14 @@ export default function Home() {
                                 classes.skillCard,
                                 classes.tensorflowPy
                             )}
+                            onClick={() => handleSkillClick('Tensorflow.PY')}
                         >
-                            <CardContent className={classes.cardTitleDesc}>
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'myAspSkills'
+                                )}
+                            >
                                 <Grid
                                     container
                                     spacing={0}
@@ -3687,7 +4004,7 @@ export default function Home() {
                                                         classes.popUpTitle
                                                     }
                                                 >
-                                                    Tensorflow . PY
+                                                    Tensorflow.PY
                                                 </Typography>
                                             </Grid>
                                             <Grid
@@ -3702,7 +4019,9 @@ export default function Home() {
                                                     flexBasis: 'auto',
                                                 }}
                                             >
-                                                {renderPopUpStars(0)}
+                                                {renderPopUpStars(
+                                                    skills[17].stars
+                                                )}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -3736,7 +4055,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(0)}
+                                {renderStars(skills[17].stars)}
                             </CardActions>
                         </Card>
                     </Container>
@@ -3752,7 +4071,16 @@ export default function Home() {
                     <Typography variant="h3" className={classes.sectionTitle}>
                         Projects
                     </Typography>
-                    <Grid item xs={12} className={classes.project1}>
+                    <Grid
+                        item
+                        xs={12}
+                        className={clsx(
+                            classes.project1,
+                            'projectSec',
+                            'lToRScroll'
+                        )}
+                        data-scroll="out"
+                    >
                         <div style={{ position: 'relative' }}>
                             <Container className={classes.projectImg}>
                                 <Image
@@ -3778,8 +4106,7 @@ export default function Home() {
                                     variant="h3"
                                     className={classes.projectDesc}
                                 >
-                                    A responsive landing page for a tour
-                                    discovery app
+                                    {projects[0].description}
                                 </Typography>
                                 <Button
                                     variant="contained"
@@ -3795,7 +4122,16 @@ export default function Home() {
                             </div>
                         </div>
                     </Grid>
-                    <Grid item xs={12} className={classes.project2}>
+                    <Grid
+                        item
+                        xs={12}
+                        className={clsx(
+                            classes.project2,
+                            'projectSec',
+                            'rToLScroll'
+                        )}
+                        data-scroll="out"
+                    >
                         <div style={{ position: 'relative' }}>
                             <Container className={classes.projectImg}>
                                 <Image
@@ -3815,14 +4151,13 @@ export default function Home() {
                                     variant="h3"
                                     className={classes.projectTitle}
                                 >
-                                    Natours
+                                    Tech Network
                                 </Typography>
                                 <Typography
                                     variant="h3"
                                     className={classes.projectDesc}
                                 >
-                                    A responsive landing page for a tour
-                                    discovery app
+                                    {projects[1].description}
                                 </Typography>
                                 <Button
                                     variant="contained"
@@ -3838,7 +4173,16 @@ export default function Home() {
                             </div>
                         </div>
                     </Grid>
-                    <Grid item xs={12} className={classes.project1}>
+                    <Grid
+                        item
+                        xs={12}
+                        className={clsx(
+                            classes.project1,
+                            'projectSec',
+                            'lToRScroll'
+                        )}
+                        data-scroll="out"
+                    >
                         <div style={{ position: 'relative' }}>
                             <Container className={classes.projectImg}>
                                 <Image
@@ -3860,14 +4204,13 @@ export default function Home() {
                                     variant="h3"
                                     className={classes.projectTitle}
                                 >
-                                    Natours
+                                    Home Rentals
                                 </Typography>
                                 <Typography
                                     variant="h3"
                                     className={classes.projectDesc}
                                 >
-                                    A responsive landing page for a tour
-                                    discovery app
+                                    {projects[2].description}
                                 </Typography>
                                 <Button
                                     variant="contained"
@@ -3883,7 +4226,16 @@ export default function Home() {
                             </div>
                         </div>
                     </Grid>
-                    <Grid item xs={12} className={classes.project2}>
+                    <Grid
+                        item
+                        xs={12}
+                        className={clsx(
+                            classes.project2,
+                            'projectSec',
+                            'rToLScroll'
+                        )}
+                        data-scroll="out"
+                    >
                         <div style={{ position: 'relative' }}>
                             <Container className={classes.projectImg}>
                                 <Image
@@ -3903,14 +4255,13 @@ export default function Home() {
                                     variant="h3"
                                     className={classes.projectTitle}
                                 >
-                                    Natours
+                                    Mockdemy
                                 </Typography>
                                 <Typography
                                     variant="h3"
                                     className={classes.projectDesc}
                                 >
-                                    A responsive landing page for a tour
-                                    discovery app
+                                    {projects[3].description}
                                 </Typography>
                                 <Button
                                     variant="contained"
@@ -3926,7 +4277,16 @@ export default function Home() {
                             </div>
                         </div>
                     </Grid>
-                    <Grid item xs={12} className={classes.project1}>
+                    <Grid
+                        item
+                        xs={12}
+                        className={clsx(
+                            classes.project1,
+                            'projectSec',
+                            'lToRScroll'
+                        )}
+                        data-scroll="out"
+                    >
                         <div style={{ position: 'relative' }}>
                             <Container className={classes.projectImg}>
                                 <Image
@@ -3948,14 +4308,13 @@ export default function Home() {
                                     variant="h3"
                                     className={classes.projectTitle}
                                 >
-                                    Natours
+                                    Tetris Clone
                                 </Typography>
                                 <Typography
                                     variant="h3"
                                     className={classes.projectDesc}
                                 >
-                                    A responsive landing page for a tour
-                                    discovery app
+                                    {projects[4].description}
                                 </Typography>
                                 <Button
                                     variant="contained"
@@ -3971,8 +4330,22 @@ export default function Home() {
                             </div>
                         </div>
                     </Grid>
-                    <Grid item xs={12} className={classes.project2}>
-                        <div style={{ position: 'relative' }}>
+                    <Grid
+                        item
+                        xs={12}
+                        className={clsx(
+                            classes.project2,
+                            'projectSec',
+                            'rToLScroll'
+                        )}
+                        data-scroll="out"
+                    >
+                        <div
+                            style={{
+                                position: 'relative',
+                                marginBottom: '2rem',
+                            }}
+                        >
                             <Container className={classes.projectImg}>
                                 <Image
                                     src="/img/projects/notesPro.png"
@@ -3991,14 +4364,13 @@ export default function Home() {
                                     variant="h3"
                                     className={classes.projectTitle}
                                 >
-                                    Natours
+                                    Notes Pro
                                 </Typography>
                                 <Typography
                                     variant="h3"
                                     className={classes.projectDesc}
                                 >
-                                    A responsive landing page for a tour
-                                    discovery app
+                                    {projects[5].description}
                                 </Typography>
                                 <Button
                                     variant="contained"
@@ -4022,25 +4394,39 @@ export default function Home() {
                         handleProjectChange={handleProjectChange}
                     />
                 ) : null}
+                <Dialog
+                    open={showSkill}
+                    className={classes.skillModal}
+                    onClick={() => {
+                        setshowSkill(false);
+                    }}
+                >
+                    <SkillModal
+                        skill={currentSkill}
+                        renderPopUpStars={renderPopUpStars}
+                    />
+                </Dialog>
                 <Grid
                     id="experienceSection"
                     container
                     spacing={3}
                     direction="column"
                     className={classes.contentSections}
+                    style={{ minHeight: '20rem' }}
                 >
                     <Typography variant="h3" className={classes.sectionTitle}>
                         Work Experience
                     </Typography>
                     <Grid
                         direction="row"
-                        spacing={2}
+                        spacing={7}
                         item
                         container
                         xs={12}
                         className={classes.workExpContainer}
+                        alignItems="center"
                     >
-                        <Grid item xs={3} className={classes.expLogo}>
+                        <Grid item xs={5} sm={3} className={classes.expLogo}>
                             <Image
                                 src="/img/workExpImgs/wipro/wiproExp.png"
                                 alt="wipro-logo"
@@ -4068,7 +4454,8 @@ export default function Home() {
                             spacing={1}
                             item
                             container
-                            xs={9}
+                            xs={7}
+                            sm={9}
                             className={classes.expContent}
                             alignItems="flex-start"
                         >
@@ -4101,7 +4488,95 @@ export default function Home() {
                 </Grid>
             </main>
 
-            <footer style={{ height: '10vh' }}></footer>
+            <footer
+                style={{
+                    height: '30vh',
+                    color: '#fff',
+                    overflow: 'hidden',
+                    position: 'relative',
+                }}
+            >
+                <Grid
+                    container
+                    direction="row"
+                    spacing={0}
+                    className={classes.topSectionContainerSprinkle}
+                    style={{
+                        top: 'unset',
+                        position: 'relative',
+                        height: '100%',
+                    }}
+                >
+                    <Grid
+                        item
+                        xs={6}
+                        className={classes.topSectionContainerSprinkle1}
+                    >
+                        <Image
+                            // className={classes.img2}
+                            src="/img/topSectionImages/Layer 1 1.png"
+                            alt="design scrapper"
+                            layout="responsive"
+                            width={500}
+                            height={400}
+                            priority
+                        />
+                    </Grid>
+                    <Grid
+                        item
+                        xs={6}
+                        className={classes.topSectionContainerSprinkle1}
+                    >
+                        <Image
+                            // className={classes.img2}
+                            src="/img/topSectionImages/Layer 1 2.png"
+                            alt="design scrapper"
+                            layout="responsive"
+                            width={500}
+                            height={400}
+                            priority
+                        />
+                    </Grid>
+                </Grid>
+                <div
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        textAlign: 'center',
+                    }}
+                >
+                    <Typography
+                        variant="h5"
+                        className={clsx(
+                            classes.aboutMeRole,
+                            classes.footerText1
+                        )}
+                    >
+                        Awaiting for opportunities !
+                    </Typography>
+                    <Typography
+                        variant="body1"
+                        className={clsx(
+                            classes.aboutMeRole,
+                            classes.footerText2
+                        )}
+                        style={{ marginTop: 0 }}
+                    >
+                        Copyright &#169; 2021 goes to{' '}
+                        <span
+                            style={{
+                                fontWeight: 'bold',
+                                color: '#fff',
+                            }}
+                        >
+                            Richie Roberts
+                        </span>{' '}
+                        UI/UX designer at Freshworks
+                    </Typography>
+                </div>
+            </footer>
         </div>
     );
 }

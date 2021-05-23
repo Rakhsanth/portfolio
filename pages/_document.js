@@ -2,6 +2,7 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '../theme';
+// import { ScrollOut } from '../public/scroll-out';
 
 export default class MyDocument extends Document {
     render() {
@@ -27,13 +28,15 @@ export default class MyDocument extends Document {
                         src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
                         type="text/javascript"
                     ></script>
-                    <script src="app.js" />
                 </Head>
                 <body>
-                    <script src="anime.min.js"></script>
+                    {/* <script src="anime.min.js"></script> */}
                     <Main />
                     <NextScript />
                 </body>
+                {/* <script src="scroll-out.js" /> */}
+                {/* {ScrollOut({ targets: '[data-scroll]' })} */}
+                <script src="app.js" />
             </Html>
         );
     }
