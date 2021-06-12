@@ -19,16 +19,11 @@ export default class MyDocument extends Document {
                         rel="stylesheet"
                         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
                     />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" />
+                    {/* <link rel="preconnect" href="https://fonts.gstatic.com" /> */}
                     <link
                         href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"
                         rel="stylesheet"
                     />
-                    {/* Simple bar stylesheet */}
-                    {/* <link
-                        rel="stylesheet"
-                        href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"
-                    /> */}
                     {/* jQuery for smooth scrolling effect */}
                     <script
                         src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -40,9 +35,6 @@ export default class MyDocument extends Document {
                     <Main />
                     <NextScript />
                 </body>
-                {/* <script src="scroll-out.js" /> */}
-                {/* {ScrollOut({ targets: '[data-scroll]' })} */}
-                {/* <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script> */}
                 <script src="app.js" />
             </Html>
         );
