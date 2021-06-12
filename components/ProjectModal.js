@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '1rem',
         zIndex: 3,
         overflow: 'hidden',
+        [theme.breakpoints.down('xs')]: {
+            top: '9%',
+            width: '100vw',
+            height: '100vh',
+        },
     },
     imgsContainer: {
         position: 'relative',
@@ -122,9 +127,11 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
     },
     middleGridTitleArea: {
-        marginTop: '0.5rem',
         width: '100%',
         textAlign: 'center',
+        '&:not(:first-of-type)': {
+            marginTop: '1rem',
+        },
     },
     middleGridTitle: {
         color: '#fff',
@@ -132,11 +139,13 @@ const useStyles = makeStyles((theme) => ({
     },
     middleGridFeatures: {
         color: lightTextColor,
+        marginBottom: '1rem',
     },
     middleGridFeatureRow: {
         // color: '#fff',
         fontStyle: 'italic',
         fontSize: '1rem',
+        justifyContent: 'center',
     },
     listIcon: {
         position: 'relative',
@@ -191,6 +200,14 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '2rem',
         color: '#fff',
         textAlign: 'center',
+        [theme.breakpoints.down('xs')]: {
+            position: 'absolute',
+            bottom: '15%',
+            width: '100%',
+            marginTop: 0,
+            bottom: '15%',
+            justifyContent: 'space-around',
+        },
     },
     pageButton: {
         fontSize: '1.25rem',
@@ -201,7 +218,7 @@ const useStyles = makeStyles((theme) => ({
     crossPageContainer: {
         position: 'absolute',
         top: '5%',
-        left: '90%',
+        right: '5%',
         width: '1.5rem',
         height: '100%',
     },
@@ -349,7 +366,7 @@ function ProjectModal(props) {
                     direction="column"
                     spacing={2}
                     className={clsx(classes.middleGrid1, classes.scrollable)}
-                    data-simplebar
+                    // data-simplebar
                 >
                     <Grid
                         item
@@ -357,7 +374,14 @@ function ProjectModal(props) {
                         container
                         direction="column"
                         justify="space-between"
-                        className={classes.middleGridInnerContainer}
+                        alignItems="center"
+                        wrap="nowrap"
+                        className={clsx(
+                            classes.middleGridInnerContainer,
+                            classes.scrollable,
+                            'modal-scrollbar'
+                        )}
+                        data-simplebar
                     >
                         <Grid
                             item
@@ -383,73 +407,48 @@ function ProjectModal(props) {
                                 alignItems="center"
                                 className={classes.middleGridFeatures}
                             >
-                                <Grid
-                                    item
-                                    container
-                                    spacing={1}
-                                    direction="row"
-                                    justify="flex-start"
-                                    alignItems="flex-start"
-                                    className={classes.middleGridFeatureRow}
-                                >
-                                    <Grid
-                                        item
-                                        xs={1}
-                                        className={classes.listIcon}
-                                    >
-                                        <svg className={classes.listIconSvg}>
-                                            <use xlinkHref="/img/projects/sprite.svg#icon-chevron-right"></use>
-                                        </svg>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={10}
-                                        className={classes.listTextArea}
-                                    >
-                                        <Typography
-                                            variant="body"
-                                            className={classes.listText}
+                                {projectDetails.projectFeatures.map(
+                                    (feature, index) => (
+                                        <Grid
+                                            key={index}
+                                            item
+                                            container
+                                            spacing={1}
+                                            direction="row"
+                                            justify="flex-start"
+                                            alignItems="flex-start"
+                                            className={
+                                                classes.middleGridFeatureRow
+                                            }
                                         >
-                                            shkfjajs;f askdjhfapwusfe laskdf
-                                            oaisds dhfo;asf alsdh failw fiasdfk
-                                            sidbu agjdsh
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                                <Grid
-                                    item
-                                    container
-                                    spacing={1}
-                                    direction="row"
-                                    justify="flex-start"
-                                    alignItems="flex-start"
-                                    className={classes.middleGridFeatureRow}
-                                >
-                                    <Grid
-                                        item
-                                        xs={1}
-                                        className={classes.listIcon}
-                                    >
-                                        <svg className={classes.listIconSvg}>
-                                            <use xlinkHref="/img/projects/sprite.svg#icon-chevron-right"></use>
-                                        </svg>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={10}
-                                        className={classes.listTextArea}
-                                    >
-                                        <Typography
-                                            variant="body"
-                                            className={classes.listText}
-                                        >
-                                            shkfjajs;f askdjhfapwusfe laskdf
-                                            oaisds dhfo;asf alsdh failw fia jshd
-                                            uyfg ayusdgf iuaeyfuiaqybfuaywifuka
-                                            evyitA udy IQWGilu cbkd lsd
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
+                                            <Grid
+                                                item
+                                                xs={1}
+                                                className={classes.listIcon}
+                                            >
+                                                <svg
+                                                    className={
+                                                        classes.listIconSvg
+                                                    }
+                                                >
+                                                    <use xlinkHref="/img/projects/sprite.svg#icon-chevron-right"></use>
+                                                </svg>
+                                            </Grid>
+                                            <Grid
+                                                item
+                                                xs={10}
+                                                className={classes.listTextArea}
+                                            >
+                                                <Typography
+                                                    variant="body"
+                                                    className={classes.listText}
+                                                >
+                                                    {feature}
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
+                                    )
+                                )}
                             </Grid>
                         </Grid>
                         <Grid
@@ -476,70 +475,48 @@ function ProjectModal(props) {
                                 alignItems="center"
                                 className={classes.middleGridFeatures}
                             >
-                                <Grid
-                                    item
-                                    container
-                                    spacing={1}
-                                    direction="row"
-                                    justify="flex-start"
-                                    alignItems="flex-start"
-                                    className={classes.middleGridFeatureRow}
-                                >
-                                    <Grid
-                                        item
-                                        xs={1}
-                                        className={classes.listIcon}
-                                    >
-                                        <svg className={classes.listIconSvg}>
-                                            <use xlinkHref="/img/projects/sprite.svg#icon-chevron-right"></use>
-                                        </svg>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={10}
-                                        className={classes.listTextArea}
-                                    >
-                                        <Typography
-                                            variant="body"
-                                            className={classes.listText}
+                                {projectDetails.learnings.map(
+                                    (learning, index) => (
+                                        <Grid
+                                            key={index}
+                                            item
+                                            container
+                                            spacing={1}
+                                            direction="row"
+                                            justify="flex-start"
+                                            alignItems="flex-start"
+                                            className={
+                                                classes.middleGridFeatureRow
+                                            }
                                         >
-                                            shkfjajs;f askdjhfapwusfe laskdf
-                                            oaisds dhfo;asf alsdh failw fia
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                                <Grid
-                                    item
-                                    container
-                                    spacing={1}
-                                    direction="row"
-                                    justify="flex-start"
-                                    alignItems="flex-start"
-                                    className={classes.middleGridFeatureRow}
-                                >
-                                    <Grid
-                                        item
-                                        xs={1}
-                                        className={classes.listIcon}
-                                    >
-                                        <svg className={classes.listIconSvg}>
-                                            <use xlinkHref="/img/projects/sprite.svg#icon-chevron-right"></use>
-                                        </svg>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={10}
-                                        className={classes.listTextArea}
-                                    >
-                                        <Typography
-                                            variant="body"
-                                            className={classes.listText}
-                                        >
-                                            shkfjajs;f askdjhfapwusfe laskdf
-                                            oaisds dhfo;asf alsdh failw fia
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
+                                            <Grid
+                                                item
+                                                xs={1}
+                                                className={classes.listIcon}
+                                            >
+                                                <svg
+                                                    className={
+                                                        classes.listIconSvg
+                                                    }
+                                                >
+                                                    <use xlinkHref="/img/projects/sprite.svg#icon-chevron-right"></use>
+                                                </svg>
+                                            </Grid>
+                                            <Grid
+                                                item
+                                                xs={10}
+                                                className={classes.listTextArea}
+                                            >
+                                                <Typography
+                                                    variant="body"
+                                                    className={classes.listText}
+                                                >
+                                                    {learning}
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
+                                    )
+                                )}
                             </Grid>
                         </Grid>
                         <Grid
@@ -566,70 +543,48 @@ function ProjectModal(props) {
                                 alignItems="center"
                                 className={classes.middleGridFeatures}
                             >
-                                <Grid
-                                    item
-                                    container
-                                    spacing={1}
-                                    direction="row"
-                                    justify="flex-start"
-                                    alignItems="flex-start"
-                                    className={classes.middleGridFeatureRow}
-                                >
-                                    <Grid
-                                        item
-                                        xs={1}
-                                        className={classes.listIcon}
-                                    >
-                                        <svg className={classes.listIconSvg}>
-                                            <use xlinkHref="/img/projects/sprite.svg#icon-chevron-right"></use>
-                                        </svg>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={10}
-                                        className={classes.listTextArea}
-                                    >
-                                        <Typography
-                                            variant="body"
-                                            className={classes.listText}
+                                {projectDetails.techStacks.map(
+                                    (tech, index) => (
+                                        <Grid
+                                            key={index}
+                                            item
+                                            container
+                                            spacing={1}
+                                            direction="row"
+                                            justify="flex-start"
+                                            alignItems="flex-start"
+                                            className={
+                                                classes.middleGridFeatureRow
+                                            }
                                         >
-                                            shkfjajs;f askdjhfapwusfe laskdf
-                                            oaisds dhfo;asf alsdh failw fia
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                                <Grid
-                                    item
-                                    container
-                                    spacing={1}
-                                    direction="row"
-                                    justify="flex-start"
-                                    alignItems="flex-start"
-                                    className={classes.middleGridFeatureRow}
-                                >
-                                    <Grid
-                                        item
-                                        xs={1}
-                                        className={classes.listIcon}
-                                    >
-                                        <svg className={classes.listIconSvg}>
-                                            <use xlinkHref="/img/projects/sprite.svg#icon-chevron-right"></use>
-                                        </svg>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        xs={10}
-                                        className={classes.listTextArea}
-                                    >
-                                        <Typography
-                                            variant="body"
-                                            className={classes.listText}
-                                        >
-                                            shkfjajs;f askdjhfapwusfe laskdf
-                                            oaisds dhfo;asf alsdh failw fia
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
+                                            <Grid
+                                                item
+                                                xs={1}
+                                                className={classes.listIcon}
+                                            >
+                                                <svg
+                                                    className={
+                                                        classes.listIconSvg
+                                                    }
+                                                >
+                                                    <use xlinkHref="/img/projects/sprite.svg#icon-chevron-right"></use>
+                                                </svg>
+                                            </Grid>
+                                            <Grid
+                                                item
+                                                xs={10}
+                                                className={classes.listTextArea}
+                                            >
+                                                <Typography
+                                                    variant="body"
+                                                    className={classes.listText}
+                                                >
+                                                    {tech}
+                                                </Typography>
+                                            </Grid>
+                                        </Grid>
+                                    )
+                                )}
                             </Grid>
                         </Grid>
                     </Grid>
@@ -691,7 +646,7 @@ function ProjectModal(props) {
                                     Visit App
                                 </Button>
                             </Link>
-                            <Link href="">
+                            <Link href={projectDetails.githubLink}>
                                 <Button
                                     variant="contained"
                                     className={classes.projectButton}
@@ -699,6 +654,18 @@ function ProjectModal(props) {
                                     View code
                                 </Button>
                             </Link>
+                            {projectDetails.githubLink2 ? (
+                                <Link href={projectDetails.githubLink2}>
+                                    <Button
+                                        variant="contained"
+                                        className={classes.projectButton}
+                                    >
+                                        View code (Backend)
+                                    </Button>
+                                </Link>
+                            ) : (
+                                ''
+                            )}
                         </Container>
                     </Grid>
                 </Grid>

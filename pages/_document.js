@@ -2,6 +2,7 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '../theme';
+// For custom scroll bar wherever needed
 // import { ScrollOut } from '../public/scroll-out';
 
 export default class MyDocument extends Document {
@@ -23,6 +24,11 @@ export default class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&display=swap"
                         rel="stylesheet"
                     />
+                    {/* Simple bar stylesheet */}
+                    {/* <link
+                        rel="stylesheet"
+                        href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css"
+                    /> */}
                     {/* jQuery for smooth scrolling effect */}
                     <script
                         src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -36,6 +42,7 @@ export default class MyDocument extends Document {
                 </body>
                 {/* <script src="scroll-out.js" /> */}
                 {/* {ScrollOut({ targets: '[data-scroll]' })} */}
+                {/* <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script> */}
                 <script src="app.js" />
             </Html>
         );

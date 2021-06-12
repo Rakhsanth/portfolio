@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../theme';
 
+import 'simplebar/dist/simplebar.css';
 import '../styles/globals.css';
 // Components
 

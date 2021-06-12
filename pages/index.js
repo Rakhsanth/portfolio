@@ -1,6 +1,8 @@
 // next js related
 import Head from 'next/head';
 import Image from 'next/image';
+// React related
+import { useState, useEffect, useRef } from 'react';
 // Material UI related
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -21,9 +23,11 @@ import {
 } from '@material-ui/core';
 import { Business } from '@material-ui/icons';
 import clsx from 'clsx';
+// Simple bar for nice scroller
+// import 'simplebar';
+// import 'simplebar/dist/simplebar.css';
 // Custon styles
 import styles from '../styles/Home.module.css';
-import { useState, useEffect, useRef } from 'react';
 import ProjectModal from '../components/ProjectModal';
 import {
     projects,
@@ -131,26 +135,36 @@ const useStyles = makeStyles((theme) => ({
     },
     dpTop: {
         position: 'absolute',
-        top: '4rem',
+        top: '6rem',
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 2,
-        width: '33rem',
-        height: '33rem',
+        width: '22rem',
+        height: '22rem',
+        '&:before': {
+            content: '""',
+            position: 'absolute',
+            top: '-4.5%',
+            left: '2.5%',
+            width: '95%',
+            height: '95%',
+            backgroundColor: '#A43735',
+            borderRadius: '50%',
+        },
         [theme.breakpoints.down('md')]: {
             top: '3rem',
-            width: '30rem',
-            height: '30rem',
+            width: '21rem',
+            height: '21rem',
         },
         [theme.breakpoints.down('sm')]: {
             top: '1.5rem',
-            width: '25rem',
-            height: '25rem',
+            width: '17.5rem',
+            height: '17rem',
         },
         [theme.breakpoints.down('xs')]: {
             top: '1.25rem',
-            width: '15rem',
-            height: '15rem',
+            width: '11rem',
+            height: '10.5rem',
         },
     },
     aboutMeContainer: {
@@ -263,6 +277,11 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'start',
         display: 'block',
         color: '#fff',
+        fontSize: '0.8rem',
+        overflowWrap: 'break-word',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '0.7rem',
+        },
     },
     contentSections: {
         position: 'relative',
@@ -271,6 +290,9 @@ const useStyles = makeStyles((theme) => ({
         margin: '5rem auto',
         textAlign: 'center',
         overflow: 'hidden',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     skillContentSections: {
         position: 'relative',
@@ -279,8 +301,10 @@ const useStyles = makeStyles((theme) => ({
         margin: '5rem auto',
         textAlign: 'center',
         overflow: 'visible',
-        [theme.breakpoints.down('xs')]: {
-            minHeight: '120rem',
+        display: 'flex',
+        justifyContent: 'center',
+        [theme.breakpoints.down('sm')]: {
+            minHeight: '30rem',
         },
     },
     aspiantionalSkillContentSections: {
@@ -290,9 +314,9 @@ const useStyles = makeStyles((theme) => ({
         margin: '5rem auto',
         textAlign: 'center',
         overflow: 'visible',
-        [theme.breakpoints.down('xs')]: {
-            minHeight: '25rem',
-        },
+        display: 'flex',
+        justifyContent: 'center',
+        [theme.breakpoints.down('sm')]: {},
     },
     sectionTitle: {
         position: 'absolute',
@@ -318,14 +342,23 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         transform: 'translate(-50%, -50%)',
         position: 'absolute',
-        width: '80%',
-        height: '50%',
+        width: '75%',
+        height: '100%',
         overflow: 'visible',
-        [theme.breakpoints.down('xs')]: {
+        margin: '0 auto',
+        marginTop: '3rem',
+        [theme.breakpoints.down('sm')]: {
             top: 0,
-            minHeight: '15rem',
-            height: 0,
-            transform: 'translate(-50%, 0%)',
+            left: 0,
+            position: 'relative',
+            transform: 'translate(0%, 0%)',
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            justifyItems: 'center',
+        },
+        [theme.breakpoints.down('xs')]: {
+            gridTemplateColumns: 'repeat(3, 1fr)',
         },
     },
     aspSkillsContainer: {
@@ -333,14 +366,23 @@ const useStyles = makeStyles((theme) => ({
         left: '50%',
         transform: 'translate(-50%, -50%)',
         position: 'absolute',
-        width: '80%',
-        height: '50%',
+        width: '75%',
+        height: '100%',
         overflow: 'visible',
+        margin: '0 auto',
+        marginTop: '3rem',
+        [theme.breakpoints.down('sm')]: {
+            top: 0,
+            left: 0,
+            position: 'relative',
+            transform: 'translate(0%, 0%)',
+            width: '100%',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            justifyItems: 'center',
+        },
         [theme.breakpoints.down('xs')]: {
-            top: '5%',
-            minHeight: '15rem',
-            height: 0,
-            transform: 'translate(-50%, 0%)',
+            gridTemplateColumns: 'repeat(3, 1fr)',
         },
     },
     skillCard: {
@@ -352,13 +394,16 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'visible',
         '&:hover > $cardTitleDesc': {
             width: '25rem',
-            height: '10rem',
+            minHeight: '10rem',
             opacity: 1,
             pointerEvents: 'fill',
         },
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             marginTop: '1.5rem',
             position: 'relative !important',
+            top: '0  !important',
+            left: '0  !important',
+            cursor: 'pointer',
         },
     },
     html: {
@@ -538,36 +583,36 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     reactNative: {
+        zIndex: 0,
+        '&:hover': {
+            zIndex: 50,
+        },
+    },
+    d3_2: {
         position: 'absolute',
-        top: '0%',
-        left: '0%',
-        zIndex: 1,
+        top: '0',
+        left: '30%',
+        zIndex: 9,
         '&:hover': {
             zIndex: 50,
         },
     },
     tensorflowJs: {
         position: 'absolute',
-        top: '0%',
-        left: '45%',
-        zIndex: 10,
+        top: '0',
+        left: '60%',
+        zIndex: 19,
         '&:hover': {
             zIndex: 50,
-        },
-        [theme.breakpoints.down('xs')]: {
-            left: '40%',
         },
     },
     tensorflowPy: {
         position: 'absolute',
-        top: '0%',
+        top: '0',
         left: '90%',
-        zIndex: 20,
+        zIndex: 29,
         '&:hover': {
             zIndex: 50,
-        },
-        [theme.breakpoints.down('xs')]: {
-            left: '85%',
         },
     },
     cardTitle: {},
@@ -577,7 +622,7 @@ const useStyles = makeStyles((theme) => ({
         bottom: '50%',
         transform: 'translateX(-50%)',
         width: 0.1,
-        height: 0.1,
+        minHeight: 0.1,
         overflow: 'visible',
         pointerEvents: 'none',
         opacity: 0,
@@ -586,7 +631,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '1rem',
         display: 'block',
         zIndex: 1,
-        [theme.breakpoints.down('xs')]: {
+        [theme.breakpoints.down('sm')]: {
             display: 'none',
         },
     },
@@ -608,7 +653,7 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     popUpLogo: {
-        height: '100%',
+        // height: '100%',
     },
     popUpTitleSection: {
         height: '40%',
@@ -909,12 +954,14 @@ export default function Home() {
             setTimeout(() => {
                 setshowProject(false);
             }, 1000);
-            document.querySelector('.projectModal').style.height = '0.1%';
+            const modalEl = document.querySelector('.projectModal');
+            modalEl.style.height = '0.1%';
+            modalEl.style.opacity = 0;
         }
     };
 
     const handleSkillClick = (skill) => {
-        if (window.innerWidth < 600) {
+        if (window.innerWidth < 960) {
             setcurrentSkill(skill);
             setshowSkill(true);
         }
@@ -1067,7 +1114,7 @@ export default function Home() {
 
     const toggleSkillAnimeFront = () => {
         // console.log(`sceen width : ${window.innerWidth}`);
-        if (window.innerWidth > 600) {
+        if (window.innerWidth > 960) {
             if (skillAnimationFrontRef.current.began) {
                 skillAnimationFrontRef.current.reverse();
 
@@ -1086,7 +1133,7 @@ export default function Home() {
     };
     const toggleSkillAnimeCenter = () => {
         // console.log(`sceen width : ${window.innerWidth}`);
-        if (window.innerWidth > 600) {
+        if (window.innerWidth > 960) {
             if (skillAnimationCenterRef.current.began) {
                 skillAnimationCenterRef.current.reverse();
 
@@ -1105,7 +1152,7 @@ export default function Home() {
     };
     const toggleSkillAnimeLast = () => {
         // console.log(`sceen width : ${window.innerWidth}`);
-        if (window.innerWidth > 600) {
+        if (window.innerWidth > 960) {
             if (skillAnimationLastRef.current.began) {
                 skillAnimationLastRef.current.reverse();
 
@@ -1256,7 +1303,7 @@ export default function Home() {
                     data-speed="8.5"
                 >
                     <Image
-                        src="/img/topSectionImages/Ellipse 21.png"
+                        src="/img/topSectionImages/profilePicture.png"
                         alt="design scrapper"
                         layout="responsive"
                         width={10}
@@ -1272,19 +1319,16 @@ export default function Home() {
                         Web Developer
                     </Typography>
                     <Typography variant="body1" className={classes.aboutMeDesc}>
-                        An optimistic, cool and an endless learner who has an
-                        eye on technology(profession) and an eye on
-                        gaming(hobby).
+                        An ambitious self-taught Software Engineer and an
+                        endless learner with a passion to develop web
+                        applications that drive the future and modern browser
+                        based applications
                     </Typography>
                     <Typography variant="body1" className={classes.aboutMeDesc}>
-                        Recently attracted by web and mobile application
-                        development and looking for an opportunity to switch my
-                        career towards it.
-                    </Typography>
-                    <Typography variant="body1" className={classes.aboutMeDesc}>
-                        As almost anything and everything needs to be on the web
-                        for users, I think my career switch is a perfect
-                        decision.
+                        Enthusiastically seeking full-time position developing
+                        web applications, willing to grow as a fullstack web
+                        developer and open source contributor as time progresses
+                        along with growth of the organisation.
                     </Typography>
                     <Grid
                         container
@@ -1412,7 +1456,7 @@ export default function Home() {
                                 }
                             >
                                 <Link
-                                    href="https://github.com/Rakhsanth"
+                                    href="https://www.linkedin.com/in/rakhsanth-rammohan-768b3611b"
                                     className={classes.contactItemTextDetail}
                                 >
                                     https://www.linkedin.com/in/rakhsanth-rammohan-768b3611b
@@ -1451,7 +1495,7 @@ export default function Home() {
                                 }
                             >
                                 <Link
-                                    href="https://www.linkedin.com/in/rakhsanth-rammohan-768b3611b/"
+                                    href="https://github.com/Rakhsanth"
                                     className={classes.contactItemTextDetail}
                                 >
                                     https://github.com/Rakhsanth
@@ -2059,6 +2103,7 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
+                            onClick={() => handleSkillClick('Javascript')}
                         >
                             <CardContent
                                 className={clsx(
@@ -2180,6 +2225,7 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeLast}
                             onMouseLeave={toggleSkillAnimeLast}
+                            onClick={() => handleSkillClick('React JS')}
                         >
                             <CardContent
                                 className={clsx(
@@ -2301,6 +2347,7 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeFront}
                             onMouseLeave={toggleSkillAnimeFront}
+                            onClick={() => handleSkillClick('Redux')}
                         >
                             <CardContent
                                 className={clsx(
@@ -2515,11 +2562,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[5].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -2641,11 +2684,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[6].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -2767,11 +2806,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[8].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -2893,11 +2928,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[9].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3019,11 +3050,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[10].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3145,11 +3172,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[11].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3271,11 +3294,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[12].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3304,7 +3323,7 @@ export default function Home() {
                             )}
                             onMouseEnter={toggleSkillAnimeCenter}
                             onMouseLeave={toggleSkillAnimeCenter}
-                            onClick={() => handleSkillClick('git')}
+                            onClick={() => handleSkillClick('Git')}
                         >
                             <CardContent
                                 className={clsx(
@@ -3397,11 +3416,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[13].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3523,11 +3538,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[14].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3649,11 +3660,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[15].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3694,6 +3701,8 @@ export default function Home() {
                                 classes.skillCard,
                                 classes.reactNative
                             )}
+                            // onMouseEnter={toggleSkillAnimeFront}
+                            // onMouseLeave={toggleSkillAnimeFront}
                             onClick={() => handleSkillClick('React Native')}
                         >
                             <CardContent
@@ -3787,11 +3796,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[15].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3813,10 +3818,130 @@ export default function Home() {
                             </CardActions>
                         </Card>
                         <Card
+                            className={clsx(classes.skillCard, classes.d3_2)}
+                            // onMouseEnter={toggleSkillAnimeCenter}
+                            // onMouseLeave={toggleSkillAnimeCenter}
+                            onClick={() => handleSkillClick('D3 JS')}
+                        >
+                            <CardContent
+                                className={clsx(
+                                    classes.cardTitleDesc,
+                                    'myAspSkills'
+                                )}
+                            >
+                                <Grid
+                                    container
+                                    spacing={0}
+                                    className={classes.popUpContainer}
+                                    direction="column"
+                                    justify="flex-start"
+                                >
+                                    <Grid
+                                        item
+                                        container
+                                        direction="row"
+                                        justify="flex-start"
+                                        className={classes.popUpTitleSection}
+                                    >
+                                        <Grid
+                                            item
+                                            className={classes.popUpLogo}
+                                            xs={2}
+                                        >
+                                            <div className={classes.cardLogo}>
+                                                <Image
+                                                    src="/img/starSvgs/d3-2.svg"
+                                                    alt="js-logo"
+                                                    layout="fill"
+                                                    priority
+                                                />
+                                            </div>
+                                        </Grid>
+                                        <Grid
+                                            item
+                                            container
+                                            direction="column"
+                                            justify="flex-start"
+                                            alignItems="flex-start"
+                                            spacing={0}
+                                            xs={9}
+                                            style={{
+                                                // width: '50%',
+                                                height: '100%',
+                                                position: 'relative',
+                                                marginLeft: '1rem',
+                                                // marginTop: '-1rem',
+                                            }}
+                                        >
+                                            <Grid
+                                                item
+                                                container
+                                                // xs={6}
+                                                style={{ flexBasis: 'auto' }}
+                                            >
+                                                <Typography
+                                                    variant="h6"
+                                                    className={
+                                                        classes.popUpTitle
+                                                    }
+                                                >
+                                                    D3 JS
+                                                </Typography>
+                                            </Grid>
+                                            <Grid
+                                                item
+                                                container
+                                                // xs={6}
+                                                style={{
+                                                    // marginTop: '2rem',
+                                                    // marginLeft: '-1rem',
+                                                    // width: '8rem',
+                                                    // height: '3rem',
+                                                    flexBasis: 'auto',
+                                                }}
+                                            >
+                                                {renderPopUpStars(
+                                                    skills[15].stars
+                                                )}
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        className={classes.popUpDescription}
+                                    >
+                                        <Typography
+                                            variant="body"
+                                            className={classes.popUpDescText}
+                                        >
+                                            {skills[15].description}
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                            <CardMedia className={classes.cardMedia}>
+                                <div className={classes.cardLogo}>
+                                    <Image
+                                        src="/img/starSvgs/d3-2.svg"
+                                        alt="js-logo"
+                                        layout="fill"
+                                        priority
+                                    />
+                                </div>
+                            </CardMedia>
+                            <CardActions
+                                className={`${classes.starts} ${classes['MuiCardActions-root']}`}
+                            >
+                                {renderStars(skills[15].stars)}
+                            </CardActions>
+                        </Card>
+                        <Card
                             className={clsx(
                                 classes.skillCard,
                                 classes.tensorflowJs
                             )}
+                            // onMouseEnter={toggleSkillAnimeCenter}
+                            // onMouseLeave={toggleSkillAnimeCenter}
                             onClick={() => handleSkillClick('Tensorflow JS')}
                         >
                             <CardContent
@@ -3910,11 +4035,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[16].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3940,6 +4061,8 @@ export default function Home() {
                                 classes.skillCard,
                                 classes.tensorflowPy
                             )}
+                            // onMouseEnter={toggleSkillAnimeLast}
+                            // onMouseLeave={toggleSkillAnimeLast}
                             onClick={() => handleSkillClick('Tensorflow.PY')}
                         >
                             <CardContent
@@ -4033,11 +4156,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            ksdjfshdlkjfh lkasjdfhisaudhfoihe
-                                            wlfihwe lfh wef qwehfor
-                                            wrferwgvrsbvb ver wer gerwg erf qwef
-                                            wef wef wef qwef wef qwef we fwef
-                                            wef{' '}
+                                            {skills[17].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -4426,7 +4545,7 @@ export default function Home() {
                         className={classes.workExpContainer}
                         alignItems="center"
                     >
-                        <Grid item xs={5} sm={3} className={classes.expLogo}>
+                        <Grid item xs={5} sm={4} className={classes.expLogo}>
                             <Image
                                 src="/img/workExpImgs/wipro/wiproExp.png"
                                 alt="wipro-logo"
@@ -4455,7 +4574,7 @@ export default function Home() {
                             item
                             container
                             xs={7}
-                            sm={9}
+                            sm={8}
                             className={classes.expContent}
                             alignItems="flex-start"
                         >

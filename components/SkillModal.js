@@ -1,3 +1,6 @@
+// Next JS related
+import Image from 'next/image';
+// React related
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,8 +16,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: primaryColor,
     },
     popUpLogo: {
-        height: '100%',
+        // height: '100%',
     },
+    cardLogo: { position: 'relative', width: '90%', height: '90%' },
     popUpTitleSection: {
         height: '40%',
         width: '90%',
@@ -72,9 +76,14 @@ function SkillModal(props) {
     const classes = useStyles();
     const { skill, renderStars, renderPopUpStars } = props;
 
-    const getSkill = () => {
+    const getSkillDesc = () => {
         const found = skills.find((mySkill, index) => mySkill.skill === skill);
         return found.description;
+    };
+
+    const getSkillStars = () => {
+        const found = skills.find((mySkill, index) => mySkill.skill === skill);
+        return found.stars;
     };
 
     const renderSvg = () => {
@@ -248,6 +257,182 @@ function SkillModal(props) {
                     />
                 </svg>
             );
+        } else if (skill === 'Javascript') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/javascript-1.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'React JS') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/react-2.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Redux') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/redux.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'NodeJs') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/node-js-logo.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Sass / Scss') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/node-sass.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Python 3') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/python-5.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Java') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/java.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'C++') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/c.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Mongo DB') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/mongodb.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Next JS') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/nextjs-3.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Git') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/git.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Anime JS') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/animejs.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'D3 JS') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/d3-2.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'React Native') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/react-2.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Tensorflow JS') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/tensorflow-2.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
+        } else if (skill === 'Tensorflow.PY') {
+            return (
+                <div className={classes.cardLogo}>
+                    <Image
+                        src="/img/starSvgs/tensorflow-2.svg"
+                        alt="js-logo"
+                        layout="fill"
+                        priority
+                    />
+                </div>
+            );
         }
     };
 
@@ -305,13 +490,13 @@ function SkillModal(props) {
                             flexBasis: 'auto',
                         }}
                     >
-                        {renderPopUpStars(4)}
+                        {renderPopUpStars(getSkillStars())}
                     </Grid>
                 </Grid>
             </Grid>
             <Grid item className={classes.popUpDescription}>
                 <Typography variant="body" className={classes.popUpDescText}>
-                    {getSkill()}
+                    {getSkillDesc()}
                 </Typography>
             </Grid>
         </Grid>

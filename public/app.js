@@ -368,6 +368,12 @@ ScrollOut({
     targets: '[data-scroll]',
 });
 
+// window.scroll({
+//     top: 1000,
+//     left: 0,
+//     behavior: 'smooth',
+// });
+
 // custom scroll effects
 const dpImg = document.querySelector('.scrollImg');
 const dpImgSpeed = dpImg.dataset.speed;
@@ -402,14 +408,55 @@ window.addEventListener('scroll', () => {
         if (dataIn === 'in') {
             project.style.marginLeft = '30%';
         } else {
-            project.style.marginLeft = '-30%';
+            project.style.marginLeft = '-100%';
         }
     });
     rToLMove.forEach((project) => {
         const dataIn = project.dataset.scroll;
         // console.log(dataIn);
         if (dataIn === 'in') {
-            project.style.marginLeft = '-30%';
+            project.style.marginLeft = '-100%';
+        } else {
+            project.style.marginLeft = '30%';
+        }
+    });
+});
+
+// For mobile devices
+window.addEventListener('touchmove', () => {
+    const scroll = window.pageYOffset;
+    // effect of top dp image
+    const dpXPos = dpImg.getBoundingClientRect();
+    // console.log(((scroll * dpImgSpeed) / (dpImgWidth + dpXPos.left)) * 50 - 50);
+    if (((scroll * dpImgSpeed) / (dpImgWidth + dpXPos.left)) * 50 - 50 <= 9) {
+        dpImg.style.transform = `translateX(${
+            ((scroll * dpImgSpeed) / (dpImgWidth + dpXPos.left)) * 50 - 50
+        }%)`;
+    } else {
+        dpImg.style.transform = `translateX(${
+            ((scroll * 0) / (dpImgWidth + dpXPos.left)) * 50 - 50
+        }%)`;
+    }
+    const opacity =
+        ((scroll * dpImgSpeed) / (dpImgWidth + dpXPos.left)) * 50 - 50; //-scroll / (dpImgWidth / 2) + 1;
+    dpImg.style.opacity = 1 - opacity * 0.1; //-scroll / (dpImgWidth / 2) + 1;
+    // console.log(`opacity : ${opacity}`);
+
+    // projects section effects
+    lToRMove.forEach((project) => {
+        const dataIn = project.dataset.scroll;
+        // console.log(dataIn);
+        if (dataIn === 'in') {
+            project.style.marginLeft = '30%';
+        } else {
+            project.style.marginLeft = '-100%';
+        }
+    });
+    rToLMove.forEach((project) => {
+        const dataIn = project.dataset.scroll;
+        // console.log(dataIn);
+        if (dataIn === 'in') {
+            project.style.marginLeft = '-100%';
         } else {
             project.style.marginLeft = '30%';
         }
