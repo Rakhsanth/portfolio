@@ -1520,7 +1520,7 @@ export default function Home() {
                             </Grid>
                         </Grid>
                         <Grid item>
-                            <Link href="/docs/A4 - 3.pdf" download>
+                            <Link href="/docs/rakhsanthResume.pdf" download>
                                 <Button variant="contained" color="primary">
                                     Download Resume
                                 </Button>
