@@ -4716,7 +4716,8 @@ export default function Home() {
                         >
                             Richie Roberts
                         </span>{' '}
-                        UI/UX designer at Freshworks
+                        UI/UX designer at Freshworks for providing FIGMA design
+                        idea.
                     </Typography>
                 </div>
             </footer>
