@@ -52,7 +52,7 @@ export const projects = [
             'React',
             'Redux',
             'Express',
-            'MongoDb using mongooseJS',
+            'MongoDB using mongooseJS',
             'Google Cloud (Storage, deployment) Basics',
         ],
     },
@@ -65,7 +65,7 @@ export const projects = [
         description: 'A responsive landing page for a home rantal website',
         projectFeatures: [
             'A single landing page with pure HTML, CSS and Vannila JS',
-            'NO CSS or JS frameworks involved',
+            'No CSS or JS frameworks involved',
             'Custom animations',
             'Responsive for most of the device sizes',
         ],
@@ -86,18 +86,18 @@ export const projects = [
         projectFeatures: [
             'An E-learning platform similar to udemy (most of the design is cloned from udemy)',
             'JWT token based authentication',
-            'FOrgot password functionality with temporary password sent to email',
+            'Forgot password functionality with temporary password sent to email',
             'Can enroll to course if logged in as user',
             'Can create courses if logged in as publisher',
             '90% of functionality of udemy is being cloned',
             'Geo location to search courses found based on location of the logged in user',
             'Dynamic location marking on map generated with D3 JS based on the nearest courses found',
-            'No CSS frameworks, 100% pure CSS to achieve the design',
+            'No CSS frameworks, 100% pure CSS to achieve the cloned design',
             'Payment gateway for buying courses during checkout of shopping cart',
         ],
         learnings: [
             'To use React framework / library',
-            'To upload and retrive assets to Google CLoud Platform storage bucket',
+            'To upload and retrive assets to/from Google Cloud Platform storage bucket',
             'NodeJS and ExpressJS for backend',
             'MongoDB as database with mongoose ODM',
             'Redux for global state management',
@@ -108,7 +108,7 @@ export const projects = [
             'React',
             'Redux',
             'Express',
-            'MongoDb using mongooseJS',
+            'MongoDB using mongooseJS',
             'Google Cloud',
             'D3 JS',
         ],
@@ -148,14 +148,14 @@ export const projects = [
             'Server side rendering of page, JWT token based authentication',
         ],
         learnings: [
-            'Server side rendering with NextJS',
+            'Server Side Rendering(SSR) with NextJS',
             'Responsive material design based framework (Material UI)',
         ],
         techStacks: [
             'Next JS',
             'Material UI',
             'Express',
-            'MongoDb using mongooseJS',
+            'MongoDB using mongooseJS',
         ],
     },
 ];
@@ -193,7 +193,7 @@ export const skills = [
     {
         skill: 'NodeJs',
         description:
-            'NodeJS is the only backend technology I have worked on to provide backend functionalities for my web apps and with my good understanding of Javascript I belive I can get almost any business logic implemented with it. FLexible to learn any other modern backend technology(Like Deno etc).',
+            'NodeJS is the only backend technology I have worked on to provide backend functionalities for my web apps and with my good understanding of Javascript I belive I can get almost any business logic implemented with it. Flexible to learn any other modern backend technology(like Deno etc).',
         stars: 3,
     },
     {
@@ -205,20 +205,20 @@ export const skills = [
     {
         skill: 'Python 3',
         description:
-            'Have learned and experienced the capability of python in machine learning(especially in computer vision as part of my final year project in college). Do not have much exposure but if the requirement of amy future projects needs to be implemented with Python, willing to see what it takes to be a python developer.',
-        stars: 1.5,
+            'Have learned and experienced the capability of python in machine learning(especially in computer vision as part of my final year project in college). Do not have much exposure but if the requirement of any future projects needs to be implemented with Python, willing to see what it takes to be a python developer.',
+        stars: 1,
     },
     {
         skill: 'Java',
         description:
             'The good old JAVA that anyone can say "Hey I kow JAVA". Familiar with JAVA and currently working on a JAVA based tool where the syntax would be a little bit different. Except for syntax and my current usage I can confidently say I can be trusted to get the job done using JAVA provided a little self learning time along with the work.',
-        stars: 2.5,
+        stars: 3,
     },
     {
         skill: 'C++',
         description:
-            'Here comes the all time fastest language in the history of programming and also my all time favorite as game industry is powered by this language(Who does not like playin games?). Familiar with STL and other data structure. I still used to practice problem solving with C++ as it has a lot of template which can help in this aspect.',
-        stars: 3.5,
+            'Here comes the all time fastest language in the history of programming and also my all time favorite as game industry is powered by this language(who does not like playing games?). Familiar with STL and other data structures. I still used to practice problem solving with C++ as it has a lot of template which can help in this aspect.',
+        stars: 4,
     },
     {
         skill: 'Mongo DB',
@@ -229,25 +229,25 @@ export const skills = [
     {
         skill: 'Next JS',
         description:
-            'Recently got to know about Server Side Rendered(SSR) web applications which has a lot of advantages over Client Side Rendered(CSR) apps like React or Angular. So tried in getting my hand dirty with this popular SSR framework which uses React as the scripting language.',
+            'Recently got to know about Server Side Rendered(SSR) web applications which has a lot of advantages over Client Side Rendered(CSR) apps like React or Angular. So tried in getting my hands dirty with this popular SSR framework which uses React as the scripting language.',
         stars: 3,
     },
     {
         skill: 'Git',
         description:
-            'Familiar with basic git command and have used it for all of my projects to keep pushing changes and for continous deployment into hosting services like Heroku and Vercel etc.',
+            'Familiar with basic git commands and have used it for all of my projects to keep pushing changes and for continous deployment into hosting services like Heroku and Vercel etc.',
         stars: 3,
     },
     {
         skill: 'Anime JS',
         description:
-            'Have tried this animation engine to put its capabilities into the test for achieving cool animations. This engine is used in animating certain parts of this current portfolio you are looking at.',
+            'Have tried this animation engine to put its capabilities into the test for achieving cool animations. This engine is being used used in animating certain parts of this current portfolio you are looking at.',
         stars: 2,
     },
     {
         skill: 'D3 JS',
         description:
-            'Got to know about this library recently(Used to draw charts, graphs, maps and almost anything driven by data to be shown to users) and not much familiar and willing to explore more. Leanerd as part of one of my most complicated personal web application where lots of dynamic data driven UI markings are needed.',
+            'Got to know about this library recently(used to draw charts, graphs, maps and almost anything driven by data to be shown to users) and not much familiar but willing to explore more. Leanerd as part of one of my most complicated personal web application where lots of dynamic data driven UI markings were needed.',
         stars: 1,
     },
     {
@@ -259,13 +259,13 @@ export const skills = [
     {
         skill: 'Tensorflow JS',
         description:
-            'While exploring Python got to know about this framework as part of my journey. As this is a powerful open source machine learning and deep learning framwork this grabbed my interest and would like to learn it at some stage in my career.',
+            'While exploring Python, got to know about this framework as part of my journey. As this is a powerful open source machine learning and deep learning framwork this grabbed my interest and would like to learn it at some stage in my career.',
         stars: 0,
     },
     {
         skill: 'Tensorflow.PY',
         description:
-            'As this was first introduced for Python, if there comes a reason to work in python looking forward to learn as AI amd ML is anyway going drive future web and other applications.',
+            'As this was first introduced for Python, if there comes a need to work in python, looking forward to learn as AI amd ML is anyway going to drive future web and other applications.',
         stars: 0,
     },
 ];
