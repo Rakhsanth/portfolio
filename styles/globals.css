@@ -17,6 +17,39 @@ body {
     }
 }
 
+/* custom scrollbar for mozilla */
+body {
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
+}
+
+/* cusom select style to the page */
+::selection {
+    background: #a43735;
+}
+
+/* custom scrollbar for webkit browsers */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: #898c8f;
+    border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background-color: #1b232e;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #1b232e;
+}
+
 @media only screen and (max-width: 600px) {
     body {
         font-size: 1rem;
@@ -66,34 +99,6 @@ a:hover {
     position: absolute;
     left: 300px;
     overflow: hidden;
-}
-
-/* custom scrollbar for mozilla */
-body {
-    scrollbar-color: rebeccapurple green;
-    scrollbar-width: thin;
-}
-
-/* custom scrollbar for webkit browsers */
-/* width */
-::-webkit-scrollbar {
-    width: 10px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-    background-color: #898c8f;
-    border-radius: 10px;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background-color: #1b232e;
-    border-radius: 10px;
-    border: 2px solid transparent;
-    background-clip: content-box;
-}
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background-color: #1b232e;
 }
 
 .simplebar-content {

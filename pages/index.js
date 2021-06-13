@@ -58,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100%',
+        [theme.breakpoints.down('xs')]: {
+            justifyContent: 'space-between',
+        },
     },
     appBarText: {
         color: '#ffffff',
@@ -253,7 +256,7 @@ const useStyles = makeStyles((theme) => ({
             fontSize: '0.75rem',
         },
         [theme.breakpoints.down('xs')]: {
-            fontSize: '0.5rem',
+            fontSize: '0.6rem',
         },
     },
     contactContainer: {
@@ -895,10 +898,16 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     workExpContainer: {
-        marginTop: '2rem',
+        marginTop: '-5rem',
         marginLeft: '5%',
         width: '100%',
         height: '11rem',
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '-7rem',
+        },
+        [theme.breakpoints.down('xs')]: {
+            marginTop: '-7rem',
+        },
     },
     expLogo: {
         position: 'relative',
@@ -906,7 +915,7 @@ const useStyles = makeStyles((theme) => ({
         height: '90%',
         [theme.breakpoints.down('xs')]: {
             marginTop: '25%',
-            transform: 'translateY(-50%)',
+            transform: 'translateY(-65%)',
             width: '50%',
             height: '50%',
         },
@@ -920,6 +929,7 @@ const useStyles = makeStyles((theme) => ({
     expYears: {
         color: lightTextColor,
         fontStyle: 'italic',
+        fontWeight: 'normal',
         fontSize: '1.2rem',
     },
     expText: {
@@ -927,6 +937,11 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1rem',
         [theme.breakpoints.down('sm')]: {
             fontSize: '0.75rem',
+        },
+        [theme.breakpoints.down('xs')]: {
+            '& span': {
+                display: 'none',
+            },
         },
     },
 }));
@@ -967,7 +982,8 @@ export default function Home() {
         }
     };
 
-    const renderStars = (num) => {
+    const renderStars = (stars) => {
+        const num = Math.floor(stars);
         const starSvgs = [];
         for (let index = 0; index < num; index++) {
             starSvgs.push(
@@ -986,7 +1002,8 @@ export default function Home() {
         return starSvgs;
     };
 
-    const renderPopUpStars = (num) => {
+    const renderPopUpStars = (stars) => {
+        const num = Math.floor(stars);
         const starSvgs = [];
         for (let index = 0; index < num; index++) {
             starSvgs.push(
@@ -1319,8 +1336,8 @@ export default function Home() {
                         Web Developer
                     </Typography>
                     <Typography variant="body1" className={classes.aboutMeDesc}>
-                        An ambitious self-taught Software Engineer and an
-                        endless learner with a passion to develop web
+                        An ambitious self-taught Software Engineer, wanderer and
+                        an endless learner with a passion to develop web
                         applications that drive the future and modern browser
                         based applications
                     </Typography>
@@ -2806,7 +2823,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            {skills[8].description}
+                                            {skills[7].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -2928,7 +2945,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            {skills[9].description}
+                                            {skills[8].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3050,7 +3067,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            {skills[10].description}
+                                            {skills[9].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3172,7 +3189,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            {skills[11].description}
+                                            {skills[10].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3294,7 +3311,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            {skills[12].description}
+                                            {skills[11].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3416,7 +3433,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            {skills[13].description}
+                                            {skills[12].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3538,7 +3555,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            {skills[14].description}
+                                            {skills[13].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3660,7 +3677,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            {skills[15].description}
+                                            {skills[14].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3901,7 +3918,7 @@ export default function Home() {
                                                 }}
                                             >
                                                 {renderPopUpStars(
-                                                    skills[15].stars
+                                                    skills[14].stars
                                                 )}
                                             </Grid>
                                         </Grid>
@@ -3914,7 +3931,7 @@ export default function Home() {
                                             variant="body"
                                             className={classes.popUpDescText}
                                         >
-                                            {skills[15].description}
+                                            {skills[14].description}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -3932,7 +3949,7 @@ export default function Home() {
                             <CardActions
                                 className={`${classes.starts} ${classes['MuiCardActions-root']}`}
                             >
-                                {renderStars(skills[15].stars)}
+                                {renderStars(skills[14].stars)}
                             </CardActions>
                         </Card>
                         <Card
@@ -4538,7 +4555,7 @@ export default function Home() {
                     </Typography>
                     <Grid
                         direction="row"
-                        spacing={7}
+                        spacing={5}
                         item
                         container
                         xs={12}
@@ -4583,13 +4600,13 @@ export default function Home() {
                                     variant="h5"
                                     className={classes.expNum}
                                 >
-                                    1.5
-                                </Typography>
-                                <Typography
-                                    variant="body"
-                                    className={classes.expYears}
-                                >
-                                    years
+                                    2{' '}
+                                    <Typography
+                                        variant="body"
+                                        className={classes.expYears}
+                                    >
+                                        years
+                                    </Typography>
                                 </Typography>
                             </Grid>
                             <Grid item style={{ textAlign: 'start' }}>
@@ -4597,9 +4614,16 @@ export default function Home() {
                                     variant="body"
                                     className={classes.expText}
                                 >
-                                    Working on Webmethods (Java based
-                                    integration tool) for the past 1 year as
-                                    developer
+                                    Working as Webmethods developer(Java based
+                                    integration tool)
+                                    <span>
+                                        {' '}
+                                        interacting with clients and
+                                        understanding need for the solution.
+                                        Proud to be recognised as one of the
+                                        best performers of the team
+                                    </span>
+                                    .
                                 </Typography>
                             </Grid>
                         </Grid>
